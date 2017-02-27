@@ -119,7 +119,7 @@ $(document).ready(function() {
     // Animated Scrolling
     (function(){
         var topoffset = 0;
-          $('#scroll').click(function() {
+          $('.scroll-click').click(function() {
             if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
               var target = $(this.hash);
               target = target.length ? target : $('[name=' + this.hash.slice(1) +']');

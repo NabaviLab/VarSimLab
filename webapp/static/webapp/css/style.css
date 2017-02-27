@@ -306,23 +306,23 @@ header .navbar {
   -o-animation: wiggle 0.5s linear 0s infinite alternate;
   animation: wiggle 0.5s linear 0s infinite alternate;
 }
-#features {
+#select-reference {
   padding: 100px 0 0;
 }
-#features .feature-block {
+#select-reference .feature-block {
   padding-bottom: 35px;
 }
-#features .feature-block .icon-box {
+#prepare-reference .feature-block .icon-box {
   margin-bottom: 24px;
 }
-#features .feature-block .icon-box i {
+#select-reference .feature-block .icon-box i {
   display: inline-block;
   line-height: 1;
   font-size: 60px;
   transition: 0.3s;
   color: #80d6a3;
 }
-#features .feature-block h4 {
+#select-reference .feature-block h4 {
   font-size: 20px;
   color: #333;
   position: relative;
@@ -330,7 +330,7 @@ header .navbar {
   margin-bottom: 10px;
   font-weight: 400;
 }
-#features .feature-block p {
+#select-reference .feature-block p {
   font-size: 15px;
   color: #888;
   line-height: 24px;
@@ -338,18 +338,18 @@ header .navbar {
   margin-top: 20px;
   
 }
-#features .showcase-img {
+#select-reference .showcase-img {
   margin-top: 40px;
 }
-#counter {
+#modify-parameters {
   background: url(../img/counter-bg.jpg) no-repeat;
   background-size: cover;
   background-position: center;
   position: relative;
   text-align: center;
-  padding: 100px 0;
+  padding: 130px 0;
 }
-#counter:before {
+#modify-parameters:before {
   content: "";
   position: absolute;
   top: 0;
@@ -358,31 +358,31 @@ header .navbar {
   height: 100%;
   background: rgba(0, 0, 0, 0.72);
 }
-#counter .title {
+#modify-parameters .title {
   position: relative;
 }
-#counter .title h2 ,#counter .title p {
+#modify-parameters .title h2 ,#modify-parameters .title p {
   color: #fff;
 }
-#counter .block {
+#modify-parameters .block {
   margin-bottom: 20px;
 }
-#counter .block i {
+#modify-parameters .block i {
   display: block;
   font-size: 40px;
   line-height: 1;
   padding-bottom: 20px;
   color: #80d6a3;
 }
-#counter .block span {
+#modify-parameters .block span {
   line-height: 1;
   display: inline-block;
   color: #fff;
 }
-#counter .block .count-text {
+#modify-parameters .block .count-text {
   font-size: 36px;
 }
-#counter .block p {
+#modify-parameters .block p {
   font-size: 18px;
   font-weight: 300;
   color: #fff;
@@ -536,37 +536,35 @@ header .navbar {
 #html5-watermark {
   display: none !important;
 }
-#testimonial {
-  padding: 77px 0;
-}
-#testimonial .col {
+
+#modify-parameters .col {
   position: relative;
   padding: 47px 60px;
   overflow: hidden;
 }
-#testimonial .col-md-6 {
+#modify-parameters .col-md-6 {
     border: solid #dedede;
     border-width: 0 1px 1px 0;
     padding-bottom: 42px;
 }
-#testimonial .col-md-6:nth-child(3n) {
+#modify-parameters .col-md-6:nth-child(3n) {
       border-right: 0;
 }
-#testimonial .col-md-6:nth-child(5n) {
+#modify-parameters .col-md-6:nth-child(5n) {
       border-right: 0;
       border-bottom: 0;
 }
-#testimonial .col-md-6:nth-child(4n) {
+#modify-parameters .col-md-6:nth-child(4n) {
   border-bottom: 0;
 }
-#testimonial .media .media-left {
+#modify-parameters .media .media-left {
   padding-right: 20px;
 }
-#testimonial .media .media-left a {
+#modify-parameters .media .media-left a {
   position: relative;
   display: block;
 }
-#testimonial .media .media-left a:before {
+#modify-parameters .media .media-left a:before {
   content: "\f347";
   position: absolute;
   left: 0;
@@ -581,15 +579,15 @@ header .navbar {
   font-size: 13px;
   padding-top: 2px;
 }
-#testimonial .media .media-body {
+#modify-parameters .media .media-body {
   padding-top: 5px;
 }
-#testimonial .media .media-body h4 {
+#modify-parameters .media .media-body h4 {
   color: #444;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
-#testimonial .media .media-body p {
+#modify-parameters .media .media-body p {
   font-size: 14px;
   font-family: 'Lora', serif;
   font-style: italic;
@@ -750,12 +748,12 @@ header .navbar {
     -webkit-transform: translate3d(0, 0px, 0);
     transform: translate3d(0, 0px, 0);
 }
-#contact-form {
+#simulate-reads {
   padding: 100px 0;
   background:#f9f9f9;
 }
-#contact-form form input,
-#contact-form form textarea {
+#simulate-reads form input,
+#simulate-reads form textarea {
   padding: 24px 20px 0;
   border-color: #80d6a3;
   border-radius: 5px;
@@ -763,16 +761,16 @@ header .navbar {
   color: #97a0af;
   box-shadow: none;
 }
-#contact-form form input {
+#simulate-reads form input {
   margin-bottom: 15px;
   padding: 24px 27px;
 }
-#contact-form form textarea {
+#simulate-reads form textarea {
   margin-bottom: 28px;
   min-height: 172px;
   resize: none;
 }
-#contact-form form button {
+#simulate-reads form button {
   float: right;
   color: #fff;
   font-size: 16px;
@@ -783,7 +781,7 @@ header .navbar {
   border-color: transparent;
   transition: 0.3s;
 }
-#contact-form form button:hover {
+#simulate-reads form button:hover {
   background: none;
   color: #80d6a3;
   border-color: #80d6a3;
