@@ -93,8 +93,15 @@
 					<div class="col-md-12">
 						<div class="title">
 							<h2>1. SELECT REFERENCE</h2>
-							<p>Great! Looks like you got your reference genome folder is in place.<br>
-							Scroll down to proceed to the next step ..</p>
+							{% if reference_ready %}
+								<p>Great! Looks like you got your reference genome folder is in place.<br>
+								Scroll down to proceed to the next step ..</p>
+							{% else %}
+								<p style="color:red;">Oops! The simulator couldn't find the reference folder. Possible causes:</p>
+								1. You have to use one of the folders we provided at <a href="http://nabavilab.uconn.edu/datasets/" target="_blank">http://nabavilab.uconn.edu/datasets/</a> as the reference folder.
+								<br>
+								2. You have to tell Docker where to find your reference folder using <code>-v &lt;absolute_path_to_reference_folder&gt;:/reference</code> flag.
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -147,13 +154,13 @@
 									SNV rate
 								</div>
 								<div class="col-md-3" style="color: white;">
-									<input type="text" class="form-control" value="0.001">
+									<input id="normal-snv-rate" type="text" class="form-control" value="0.001">
 								</div>
 								<div class="col-md-3" style="color: white; ">
 									INDEL rate
 								</div>
 								<div class="col-md-3" style="color: white;">
-									<input type="text" class="form-control" value="0.0003">
+									<input id="normal-indel-rate" type="text" class="form-control" value="0.0003">
 								</div>
 							</div>
 							<br>
@@ -162,7 +169,7 @@
 									Transition/Transversion ratio
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="0.65">
+									<input id="normal-transition-transversion-ratio" type="text" class="form-control" value="0.65">
 								</div>
 							</div>
 							<br>
@@ -171,7 +178,7 @@
 									Heterozygous-Homozygous ratio
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="2.0">
+									<input id="normal-heterozygous-homozygous-ratio" type="text" class="form-control" value="2.0">
 								</div>
 							</div>
 							<br>
@@ -180,7 +187,7 @@
 									Insertion percent to total INDELs
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="0.5">
+									<input id="normal-insertion-percent" type="text" class="form-control" value="0.5">
 								</div>
 							</div>
 							<br>
@@ -189,7 +196,7 @@
 									Mean INDEL length
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="1">
+									<input id="normal-mean-indel-length" type="text" class="form-control" value="1">
 								</div>
 							</div>
 						  </div>
@@ -205,7 +212,7 @@
 									Base tumor genome ploidy
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="2">
+									<input id="tumor-base-tumor-genome-ploidy" type="text" class="form-control" value="2">
 								</div>
 							</div>
 							<br>
@@ -214,7 +221,7 @@
 									Structure variation rate
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="0.2">
+									<input id="tumor-structure-variation-rate" type="text" class="form-control" value="0.2">
 								</div>
 							</div>
 							<br>
@@ -223,7 +230,7 @@
 									Repeat mediated structure variation percentage
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="0.2">
+									<input id="tumor-repeat-mediated-structure-variation-percentage" type="text" class="form-control" value="0.2">
 								</div>
 							</div>
 							<br>
@@ -232,7 +239,7 @@
 									Mean copy number segment size
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="1000000">
+									<input id="tumor-mean-copy-number-segment-size" type="text" class="form-control" value="1000000">
 								</div>
 							</div>
 							<br>
@@ -241,7 +248,7 @@
 									Heterozygous-Homozygous ratio
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="2">
+									<input id="tumor-heterozygous-homozygous-ratio" type="text" class="form-control" value="2">
 								</div>
 							</div>
 							<br>
@@ -250,7 +257,7 @@
 									Mean number of tandem duplication
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="3">
+									<input id="tumor-mean-number-of-tandem-duplication" type="text" class="form-control" value="3">
 								</div>
 							</div>
 							<br>
@@ -259,7 +266,7 @@
 									Maximum size of tandem duplication
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="5000">
+									<input id="tumor-maximum-size-of-tandem-duplication" type="text" class="form-control" value="5000">
 								</div>
 							</div>
 							<br>
@@ -268,7 +275,7 @@
 									Minimal deletion size
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="500">
+									<input id="tumor-minimal-deletion-size" type="text" class="form-control" value="500">
 								</div>
 							</div>
 							<br>
@@ -277,7 +284,7 @@
 									Copy neutral LOH rate
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="0.2">
+									<input id="tumor-copy-neutral-loh-rate" type="text" class="form-control" value="0.2">
 								</div>
 							</div>
 							<br>
@@ -286,15 +293,20 @@
 									Number of SVs simulated
 								</div>
 								<div class="col-md-3" style="color: white; text-align: left">
-									<input type="text" class="form-control" value="300">
+									<input id="tumor-number-of-svs-simulated" type="text" class="form-control" value="300">
 								</div>
 							</div>
 							<br>
 						  </div>
 						</div>
 					</div>
-
 				</div>
+				<div class="row"style="color: white; padding-top: 50px;">
+						<div class="col-md-4"></div>
+						<div class="col-md-2">Output Prefix</div>
+						<div class="col-md-2"><input id="output-prefix" type="text" class="form-control" value="my_sim"></div>
+						<div class="col-md-4"></div>
+					</div>
 			</div>
 		</section>
 		<section id="simulate-reads">
@@ -306,7 +318,12 @@
 					</div>
 				</div>
 				<div class="row" style="text-align: center">
-					<div class="btn btn-success	">Run Simulation</div>
+					{% if reference_ready %}
+						<div class="btn btn-success	">Run Simulation</div>
+					{% else %}
+						<div class="btn btn-success" disabled="true">Run Simulation</div>
+						<br><br><p style="color:red;">Simulator is not ready! Check error in step 1.</p>
+					{% endif %}
 				</div>
 			</div>
 		</section>

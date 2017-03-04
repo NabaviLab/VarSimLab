@@ -347,7 +347,7 @@ header .navbar {
   background-position: center;
   position: relative;
   text-align: center;
-  padding: 130px 0;
+  padding: 130px 0px 50px 0px;
 }
 #modify-parameters:before {
   content: "";

@@ -119,3 +119,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Parameters for running the simulator
+
+DEFAULT_REFERENCE_PATH = '/reference/'
+REFERENCE_READY = False
+
+INPUT_FILES = {}
