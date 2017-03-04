@@ -23,7 +23,7 @@
  *===================*/
 body {
   line-height: 24px;
-  font-size: 14px;
+  font-size: 16px;
   color: #80d6a3;
   font-weight: 400;
   color: #444;
@@ -34,13 +34,13 @@ h1 {
   font-size: 48px;
 }
 h2 {
-  font-size: 30px;
+  font-size: 32px;
 }
 h3 {
-  font-size: 18px;
+  font-size: 20px;
 }
 h4 {
-  font-size: 16px;
+  font-size: 18px;
 }
 p {
   margin: 0px;
@@ -1317,5 +1317,7 @@ footer p {
   -webkit-transition-timing-function: ease-in-out;
 }
 
-
+input {
+    text-align: center;
+}
 

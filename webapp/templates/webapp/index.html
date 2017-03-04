@@ -137,52 +137,159 @@
 						<p>Now, modify the simulation parameters.<br> Normal reads parameters are on the left, tumor reads parameters are on the right.<br>You can also leave the default values.</p>
 					</div>
 					<div class="col col-md-6">
-						<div class="media wow fadeInLeft" data-wow-delay=".3s">
+						<div class="media wow fadeInLeft" data-wow-delay=".3s" style="overflow-y: scroll; height: 365px;">
 
 						  <div class="media-body">
 						    <a href="#"><h4 class="media-heading" style="color:white;">Normal Reads Parameters</h4></a>
+							  <br>
 							<div class="row">
-								<div class="col-md-5" style="color: white; text-align: right">
-									PARAMETER 1
+								<div class="col-md-3" style="color: white; text-align: left">
+									SNV rate
 								</div>
-								<div class="col-md-5" style="color: white; text-align: left">
-									<input type="text" class="form-control">
+								<div class="col-md-3" style="color: white;">
+									<input type="text" class="form-control" value="0.001">
+								</div>
+								<div class="col-md-3" style="color: white; ">
+									INDEL rate
+								</div>
+								<div class="col-md-3" style="color: white;">
+									<input type="text" class="form-control" value="0.0003">
 								</div>
 							</div>
 							<br>
 							<div class="row">
-								<div class="col-md-5" style="color: white; text-align: right">
-									PARAMETER 1
+								<div class="col-md-9" style="color: white; text-align: left">
+									Transition/Transversion ratio
 								</div>
-								<div class="col-md-5" style="color: white; text-align: left">
-									<input type="text" class="form-control">
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="0.65">
 								</div>
 							</div>
-
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Heterozygous-Homozygous ratio
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="2.0">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Insertion percent to total INDELs
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="0.5">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Mean INDEL length
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="1">
+								</div>
+							</div>
 						  </div>
 						</div>
 					</div>
 					<div class="col col-md-6">
-						<div class="media wow fadeInRight" data-wow-delay=".3s">
+						<div class="media wow fadeInRight" data-wow-delay=".3s" style="overflow-y: scroll; height: 365px;">
 						  <div class="media-body">
 						    <a href="#"><h4 class="media-heading" style="color:white;">Tumor Reads Parameters</h4></a>
+							<br>
 						    <div class="row">
-								<div class="col-md-5" style="color: white; text-align: right">
-									PARAMETER 1
+								<div class="col-md-9" style="color: white; text-align: left">
+									Base tumor genome ploidy
 								</div>
-								<div class="col-md-5" style="color: white; text-align: left">
-									<input type="text" class="form-control">
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="2">
 								</div>
 							</div>
 							<br>
 							<div class="row">
-								<div class="col-md-5" style="color: white; text-align: right">
-									PARAMETER 1
+								<div class="col-md-9" style="color: white; text-align: left">
+									Structure variation rate
 								</div>
-								<div class="col-md-5" style="color: white; text-align: left">
-									<input type="text" class="form-control">
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="0.2">
 								</div>
 							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Repeat mediated structure variation percentage
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="0.2">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Mean copy number segment size
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="1000000">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Heterozygous-Homozygous ratio
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="2">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Mean number of tandem duplication
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="3">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Maximum size of tandem duplication
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="5000">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Minimal deletion size
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="500">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Copy neutral LOH rate
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="0.2">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-9" style="color: white; text-align: left">
+									Number of SVs simulated
+								</div>
+								<div class="col-md-3" style="color: white; text-align: left">
+									<input type="text" class="form-control" value="300">
+								</div>
+							</div>
+							<br>
 						  </div>
 						</div>
 					</div>
@@ -220,7 +327,6 @@
 		<!-- load Js -->
 		<script src="{% static 'webapp/js/jquery-1.11.3.min.js' %}"></script>
 		<script src="{% static 'webapp/js/bootstrap.min.js' %}"></script>
-		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false"></script>
 		<script src="{% static 'webapp/js/waypoints.min.js' %}"></script>
 		<script src="{% static 'webapp/js/lightbox.js' %}"></script>
 		<script src="{% static 'webapp/js/jquery.counterup.min.js' %}"></script>
