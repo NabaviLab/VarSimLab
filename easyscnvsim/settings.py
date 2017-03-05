@@ -122,7 +122,7 @@ STATIC_URL = '/static/'
 
 # Parameters for running the simulator
 
-DEFAULT_REFERENCE_PATH = '/reference/'
+DEFAULT_REFERENCE_PATH = '/Users/abdelrahman/Desktop/hg19'
 REFERENCE_READY = False
 
 INPUT_FILES = {}

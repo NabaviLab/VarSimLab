@@ -7,6 +7,7 @@ app_name = 'webapp'
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^simulation_log$', views.simulation_log, name='simulation_log'),
 ]
 
 check_reference_ready()

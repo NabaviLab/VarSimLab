@@ -141,3 +141,7 @@ $(document).ready(function() {
 
 
 });
+
+$('#run-simulation').click(function(){
+    window.open('/simulation_log', '_blank')
+});
