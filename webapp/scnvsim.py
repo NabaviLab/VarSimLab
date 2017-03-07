@@ -1,4 +1,5 @@
 from easyscnvsim import settings
+from subprocess import Popen, PIPE, STDOUT
 import os.path
 import json
 
@@ -45,3 +46,14 @@ def check_reference_ready():
     settings.INPUT_FILES = {"reference": reference_fasta, \
                             "repeat_mask": repeat_mask, \
                             "chromosome_lengths": chromosome_lengths}
+
+
+def run_simulation():
+    #p = Popen('java -Xmx8g -jar /Users/abdelrahman/Downloads/scnvsim_1.3.1/normgenomsim_1.3.1.jar -o /Users/abdelrahman/Desktop/test -v /Users/abdelrahman/Desktop/hg19/chrom_lengths_hg19.txt -n /Users/abdelrahman/Desktop/hg19/hg19.fa' , \
+    #          stdout=PIPE, stderr=STDOUT, shell=True)
+    p = Popen('/lib/art_illumina' , \
+              stdout=PIPE, stderr=STDOUT, shell=True)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
