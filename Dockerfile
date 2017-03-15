@@ -1,16 +1,20 @@
-FROM ahosny/python
+FROM ubuntu:14.04
 LABEL MAINTAINER "Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>"
 
+# install python
+RUN apt-get update && \
+apt-get install -y python python-pip libgsl0ldbl && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV PYTHONUNBUFFERED 1
 
-# install web app
+# add web app
 RUN mkdir /easyscnvsim
 WORKDIR /easyscnvsim
 ADD requirements.txt /easyscnvsim/
 RUN pip install -r requirements.txt
 
-# ADD SCNVSim and ART
-RUN apt-get update && apt-get install -y default-jre
+# add external software libraries
 ADD easyscnvsim_lib /easyscnvsim_lib
 
 ADD easyscnvsim /easyscnvsim/easyscnvsim

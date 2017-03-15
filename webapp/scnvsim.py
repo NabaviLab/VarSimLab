@@ -25,35 +25,64 @@ def check_reference_ready():
     with open(manifest_file, 'r') as manifest:
         data = json.load(manifest)
         reference_fasta = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["reference"])
-        repeat_mask = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["repeat_mask"])
-        chromosome_lengths = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["chromosome_lengths"])
 
     if not os.path.isfile(reference_fasta):
         _log("genome reference file (.fasta | .fa) cannot be found in the reference folder; simulation will NOT work!")
         return
 
-    if not os.path.isfile(repeat_mask):
-        _log("repeat mask file (rmsk.txt) cannot be found in the reference folder; simulation will NOT work!")
-        return
-
-    if not os.path.isfile(chromosome_lengths):
-        _log("chromosome lengths file (chrom_lengths_*.txt) cannot be found in the reference folder; simulation will NOT work!")
-        return
-
     _log("found all required simulation files in place; simulation is READY!")
 
     settings.REFERENCE_READY = True
-    settings.INPUT_FILES = {"reference": reference_fasta, \
-                            "repeat_mask": repeat_mask, \
-                            "chromosome_lengths": chromosome_lengths}
+    settings.INPUT_FILES = {"reference": reference_fasta}
 
 
 def run_simulation():
-    #p = Popen('java -Xmx8g -jar /Users/abdelrahman/Downloads/scnvsim_1.3.1/normgenomsim_1.3.1.jar -o /Users/abdelrahman/Desktop/test -v /Users/abdelrahman/Desktop/hg19/chrom_lengths_hg19.txt -n /Users/abdelrahman/Desktop/hg19/hg19.fa' , \
-    #          stdout=PIPE, stderr=STDOUT, shell=True)
-    p = Popen('/lib/art_illumina' , \
+
+    # create folder
+    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/normal'
+    p = Popen(command , \
               stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
         line = p.stdout.readline()
         if not line: break
         yield line + '<br>'
+
+    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/tumor'
+    p = Popen(command , \
+              stdout=PIPE, stderr=STDOUT, shell=True)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+
+    yield 'Started simulating SNPs, Indels, CNVs ..'
+
+    command = '/easyscnvsim_lib/SInC/SInC_simulate ' + settings.INPUT_FILES['reference']
+
+    p = Popen(command , \
+              stdout=PIPE, stderr=STDOUT, shell=True)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+
+    '''
+    # simulate tumor
+    command = 'java -Xms16G -jar /easyscnvsim_lib/tumorgenomsim_1.3.1.jar' + \
+              ' -i ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/normal/normal_snvindelsim.vcf' + \
+              ' -o ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/tumor' + \
+              ' -v ' + settings.INPUT_FILES['chromosome_lengths'] + \
+              ' -k ' + settings.INPUT_FILES['repeat_mask'] + \
+              ' -n ' + settings.INPUT_FILES['reference']
+
+    p = Popen(command , \
+              stdout=PIPE, stderr=STDOUT, shell=True)
+
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+    '''
+
+    # generate short reads
+    # to be continued
