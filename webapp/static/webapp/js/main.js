@@ -143,5 +143,18 @@ $(document).ready(function() {
 });
 
 $('#run-simulation').click(function(){
-    window.open('/simulation_log', '_blank')
+    // set the simulation parameters
+    var simulation_params = {"snp-rate": $('#snp-rate').val(),
+                     "indel-rate": $('#indel-rate').val(),
+                     "transition-transversion-ratio": $('#transition-transversion-ratio').val(),
+                     "cnv-rate": $('#cnv-rate').val(),
+                     "cnv-min-size": $('#cnv-min-size').val(),
+                     "cnv-max-size": $('#cnv-max-size').val(),
+                     "output-prefix": $('#output-prefix').val() }
+
+    $.post( "/params", simulation_params )
+        .done(function( data ) {
+            // run simulation
+            window.open('/simulation', '_blank');
+        });
 });

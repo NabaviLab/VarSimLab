@@ -78,7 +78,7 @@ a:active {
 }
 .title {
   text-align: center;
-  padding-bottom: 70px;
+  padding-bottom: 30px;
 }
 .title h2 {
   color: #333;
@@ -539,7 +539,7 @@ header .navbar {
 
 #modify-parameters .col {
   position: relative;
-  padding: 47px 60px;
+  padding: 0px 60px;
   overflow: hidden;
 }
 #modify-parameters .col-md-6 {

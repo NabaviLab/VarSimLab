@@ -37,9 +37,39 @@ def check_reference_ready():
 
 
 def run_simulation():
+    welcome_message = "***********************************************<br>"
+    welcome_message += "*****DON'T CLOSE THIS BROWSER WINDOW*****<br>"
+    welcome_message += "******UNTIL SIMULATION IS COMPLETED********<br>"
+    welcome_message += "***********************************************<br><br>"
+    welcome_message += "Starting Simulation ..<br><br>"
+    welcome_message += "Simulation Parameters:<br>"
+    for key, value in settings.SIMULATION_PARAMETERS.iteritems():
+        welcome_message += "<b>" + key + "</b>: " + value + "<br>"
+    welcome_message += "<br>"
+    welcome_message += "Started ..<br><br>"
+    yield welcome_message
 
+    # create normal folder
+
+    # copy normal genome there
+
+    # create tumor folder
+
+    # copy the normal genome there
+
+    # simulate the tumor genome there
+
+    # delete the normal genome from the tumor folder
+
+    # generate reads in the normal folder
+
+    # generate reads in the tumor folder
+
+    # bye bye
+
+    '''
     # create folder
-    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/normal'
+    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal'
     p = Popen(command , \
               stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
@@ -67,22 +97,7 @@ def run_simulation():
         yield line + '<br>'
 
     '''
-    # simulate tumor
-    command = 'java -Xms16G -jar /easyscnvsim_lib/tumorgenomsim_1.3.1.jar' + \
-              ' -i ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/normal/normal_snvindelsim.vcf' + \
-              ' -o ' + settings.DEFAULT_REFERENCE_PATH + settings.OUTPUT_FOLDER.strip() + '/tumor' + \
-              ' -v ' + settings.INPUT_FILES['chromosome_lengths'] + \
-              ' -k ' + settings.INPUT_FILES['repeat_mask'] + \
-              ' -n ' + settings.INPUT_FILES['reference']
 
-    p = Popen(command , \
-              stdout=PIPE, stderr=STDOUT, shell=True)
-
-    while True:
-        line = p.stdout.readline()
-        if not line: break
-        yield line + '<br>'
-    '''
 
     # generate short reads
     # to be continued

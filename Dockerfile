@@ -21,5 +21,7 @@ ADD easyscnvsim /easyscnvsim/easyscnvsim
 ADD webapp /easyscnvsim/webapp
 ADD manage.py /easyscnvsim/manage.py
 
+RUN python manage.py migrate
+
 EXPOSE 8000
 ENTRYPOINT ["python", "/easyscnvsim/manage.py", "runserver", "0.0.0.0:8000"]

@@ -126,20 +126,10 @@ DEFAULT_REFERENCE_PATH = '/ref/'
 REFERENCE_READY = False
 
 INPUT_FILES = {}
-NORMAL_PARAMETERS = {'snv_rate': '0.001', \
-                     'indel_rate': '0.0003', \
-                     'transition_transversion_ratio': '0.65', \
-                     'heterozygous_homozygous_ratio': '2.0', \
-                     'insertion_percent': '0.5', \
-                     'mean_indel_length': '1'}
-TUMOR_PARAMETERS = {'base_tumor_genome_ploidy': '2', \
-                    'structure_variation_rate': '0.2', \
-                    'repeat_mediated_structure_variation_percentage': '0.2', \
-                    'mean_copy_number_segment_size': '1000000', \
-                    'heterozygous_homozygous_ratio': '2', \
-                    'mean_number_of_tandem_duplication': '3', \
-                    'maximum_size_of_tandem_duplication': '5000', \
-                    'minimal_deletion_size': '500', \
-                    'copy_neutral_loh_rate': '0.2', \
-                    'number_of_svs_simulated': '300'}
-OUTPUT_FOLDER = 'my_sim'
+SIMULATION_PARAMETERS = {'snp-rate': '0.002', \
+                     'indel-rate': '0.0001', \
+                     'transition-transversion-ratio': '2', \
+                     'cnv-rate': '2', \
+                     'cnv-min-size': '1000', \
+                     'cnv-max-size': '150000', \
+                     'output-prefix': 'my_sim'}
