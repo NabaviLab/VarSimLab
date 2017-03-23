@@ -144,7 +144,7 @@
 						<p>Now, modify the simulation parameters.<br> Normal reads will be generated from the original reference genome.<br>Tumor reads will be generated with the below simulation parameters.</p>
 					</div>
 					<div class="col col-md-12">
-						<div class="media wow fadeInLeft" data-wow-delay=".3s" style="overflow-y: scroll; height: 200px;">
+						<div class="media wow fadeInLeft" data-wow-delay=".3s" style="overflow-y: scroll; height: 280px;">
 
 						  <div class="media-body">
 
@@ -187,6 +187,24 @@
 									<input id="cnv-max-size" type="text" class="form-control" value="150000">
 								</div>
 								<br><br>
+								<div class="col-md-2" style="color: white; text-align: right">
+									Sequencing System
+								</div>
+								<div class="col-md-4" style="color: white;">
+									<select id="sequencing-system" class="form-control" style="text-align-last: center">
+  										<option value="HS10">HS10 - HiSeq 1000 (100bp)</option>
+										<option value="HS20">HS20 - HiSeq 2000 (100bp)</option>
+										<option value="HS25">HS25 - HiSeq 2500 (125bp, 150bp)</option>
+									</select>
+								</div>
+								<div class="col-md-2"></div>
+								<div class="col-md-2" style="color: white; text-align: right">
+									Fold Coverage
+								</div>
+								<div class="col-md-2" style="color: white;">
+									<input id="fold-coverage" type="text" class="form-control" value="2">
+								</div>
+								<br><br><br><br>
 								<div class="col-md-4"></div>
 								<div class="col-md-2" style="color: white; text-align: right">Output Prefix</div>
 								<div class="col-md-2"><input id="output-prefix" type="text" class="form-control" value="my_sim"></div>

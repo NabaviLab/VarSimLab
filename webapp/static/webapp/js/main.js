@@ -150,7 +150,9 @@ $('#run-simulation').click(function(){
                      "cnv-rate": $('#cnv-rate').val(),
                      "cnv-min-size": $('#cnv-min-size').val(),
                      "cnv-max-size": $('#cnv-max-size').val(),
-                     "output-prefix": $('#output-prefix').val() }
+                     "output-prefix": $('#output-prefix').val(),
+                     "sequencing-system": $('#sequencing-system').val(),
+                     "fold-coverage": $('#fold-coverage').val() }
 
     $.post( "/params", simulation_params )
         .done(function( data ) {

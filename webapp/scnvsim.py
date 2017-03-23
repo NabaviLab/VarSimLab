@@ -173,8 +173,46 @@ def run_simulation():
                 yield line + '<br>'
 
     # generate reads in the normal folder
+    yield 'Generating normal reads ..<br>'
+    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/'
+    command = '/easyscnvsim_lib/art_illumina ' \
+              + '-sam -i ' + settings.INPUT_FILES['reference'] + ' ' \
+              + '-l 100 ' \
+              + '-f ' + settings.SIMULATION_PARAMETERS['fold-coverage'] + ' ' \
+              + '-o ' + 'normal'
+    p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+    yield 'Finished generating normal reads ..<br>'
 
     # generate reads in the tumor folder
+    yield 'Generating tumor reads ..<br>'
+    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/'
+    command = '/easyscnvsim_lib/art_illumina ' \
+              + '-sam -i allele_1.fa' \
+              + '-l 100 ' \
+              + '-f ' + str(int(settings.SIMULATION_PARAMETERS['fold-coverage']) / 2) + ' ' \
+              + '-o ' + 'tumor_allele_1'
+    p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+
+    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/'
+    command = '/easyscnvsim_lib/art_illumina ' \
+              + '-sam -i allele_2.fa' \
+              + '-l 100 ' \
+              + '-f ' + str(int(settings.SIMULATION_PARAMETERS['fold-coverage']) / 2) + ' ' \
+              + '-o ' + 'tumor_allele_2'
+    p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
+    while True:
+        line = p.stdout.readline()
+        if not line: break
+        yield line + '<br>'
+    yield 'Finished generating tumor reads ..<br>'
 
     # bye bye
     end_message = "***********************************<br>"

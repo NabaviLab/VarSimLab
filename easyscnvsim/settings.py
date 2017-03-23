@@ -127,9 +127,11 @@ REFERENCE_READY = False
 
 INPUT_FILES = {}
 SIMULATION_PARAMETERS = {'snp-rate': '0.002', \
-                     'indel-rate': '0.0001', \
-                     'transition-transversion-ratio': '2', \
-                     'cnv-rate': '2', \
-                     'cnv-min-size': '1000', \
-                     'cnv-max-size': '150000', \
-                     'output-prefix': 'my_sim'}
+                         'indel-rate': '0.0001', \
+                         'transition-transversion-ratio': '2', \
+                         'cnv-rate': '2', \
+                         'cnv-min-size': '1000', \
+                         'cnv-max-size': '150000', \
+                         'output-prefix': 'my_sim', \
+                         'sequencing-system': 'HS10', \
+                         'fold-coverage': '2'}
