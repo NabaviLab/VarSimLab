@@ -133,5 +133,6 @@ SIMULATION_PARAMETERS = {'snp-rate': '0.002', \
                          'cnv-min-size': '1000', \
                          'cnv-max-size': '150000', \
                          'output-prefix': 'my_sim', \
-                         'sequencing-system': 'HS10', \
-                         'fold-coverage': '2'}
+                         'number-of-threads': '2', \
+                         'number-of-reads': '10000', \
+                         'read-length': '100'}

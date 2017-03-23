@@ -152,7 +152,10 @@ $('#run-simulation').click(function(){
                      "cnv-max-size": $('#cnv-max-size').val(),
                      "output-prefix": $('#output-prefix').val(),
                      "sequencing-system": $('#sequencing-system').val(),
-                     "fold-coverage": $('#fold-coverage').val() }
+                     "fold-coverage": $('#fold-coverage').val(),
+                     "number-of-reads": $('#number-of-reads').val(),
+                     "read-length": $('#read-length').val(),
+                     "number-of-threads": $('#number-of-threads').val()}
 
     $.post( "/params", simulation_params )
         .done(function( data ) {
