@@ -42,21 +42,22 @@ def check_reference_ready():
     settings.INPUT_FILES = {"reference": data['reference'], "targets": data['targets']}
 
 
-def run_simulation():
+def welcome_message(params):
     welcome_message = "***********************************************<br>"
     welcome_message += "*****DON'T CLOSE THIS BROWSER WINDOW*****<br>"
     welcome_message += "******UNTIL SIMULATION IS COMPLETED********<br>"
     welcome_message += "***********************************************<br><br>"
     welcome_message += "Starting Simulation ..<br><br>"
     welcome_message += "Simulation Parameters:<br>"
-    for key, value in settings.SIMULATION_PARAMETERS.iteritems():
+    for key, value in params.iteritems():
         welcome_message += "<b>" + key + "</b>: " + value + "<br>"
     welcome_message += "<br>"
     welcome_message += "Started ..<br><br>"
     yield welcome_message
 
-    # create normal folder
-    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal'
+
+def create_normal_folder(params):
+    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
         line = p.stdout.readline()
@@ -65,17 +66,18 @@ def run_simulation():
     yield 'Created a folder for normal reads ..<br>'
     yield 'Copying temporary files ..<br>'
 
-    # copy normal genome there
-    command = 'cp ' + settings.DEFAULT_REFERENCE_PATH +  settings.INPUT_FILES['reference'] + ' ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/;'
-    command += 'cp ' + settings.DEFAULT_REFERENCE_PATH +  settings.INPUT_FILES['targets'] + ' ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/;'
+    # copy the normal genome there
+    command = 'cp ' + settings.DEFAULT_REFERENCE_PATH +  settings.INPUT_FILES['reference'] + ' ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/;'
+    command += 'cp ' + settings.DEFAULT_REFERENCE_PATH +  settings.INPUT_FILES['targets'] + ' ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/;'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
         line = p.stdout.readline()
         if not line: break
         yield line + '<br>'
 
-    # create tumor folder
-    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor'
+
+def create_tumor_folder(params):
+    command = 'mkdir -p ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
         line = p.stdout.readline()
@@ -85,24 +87,25 @@ def run_simulation():
     yield 'Copying temporary files ..<br>'
 
     # copy the normal genome there
-    command = 'cp ' + settings.DEFAULT_REFERENCE_PATH + settings.INPUT_FILES['reference'] + ' ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/;'
-    command += 'cp ' + settings.DEFAULT_REFERENCE_PATH + settings.INPUT_FILES['targets'] + ' ' + settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/;'
+    command = 'cp ' + settings.DEFAULT_REFERENCE_PATH + settings.INPUT_FILES['reference'] + ' ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/;'
+    command += 'cp ' + settings.DEFAULT_REFERENCE_PATH + settings.INPUT_FILES['targets'] + ' ' + settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/;'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
     while True:
         line = p.stdout.readline()
         if not line: break
         yield line + '<br>'
 
-    # simulate the tumor genome there
+
+def simulate_tumor_genome(params):
     yield 'Simulating variations ..<br>'
-    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/'
+    working_dir = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/'
     command = '/easyscnvsim_lib/SInC/SInC_simulate ' \
-              + '-S ' + settings.SIMULATION_PARAMETERS['snp-rate'] + ' ' \
-              + '-I ' + settings.SIMULATION_PARAMETERS['indel-rate'] + ' ' \
-              + '-p ' + settings.SIMULATION_PARAMETERS['cnv-rate'] + ' ' \
-              + '-l ' + settings.SIMULATION_PARAMETERS['cnv-min-size'] + ' ' \
-              + '-u ' + settings.SIMULATION_PARAMETERS['cnv-max-size'] + ' ' \
-              + '-t ' + settings.SIMULATION_PARAMETERS['transition-transversion-ratio'] + ' ' \
+              + '-S ' + params['snp-rate'] + ' ' \
+              + '-I ' + params['indel-rate'] + ' ' \
+              + '-p ' + params['cnv-rate'] + ' ' \
+              + '-l ' + params['cnv-min-size'] + ' ' \
+              + '-u ' + params['cnv-max-size'] + ' ' \
+              + '-t ' + params['transition-transversion-ratio'] + ' ' \
               + settings.INPUT_FILES['reference']
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
     while True:
@@ -179,22 +182,23 @@ def run_simulation():
                 if not line: break
                 yield line + '<br>'
 
-    # generate reads in the normal folder
+
+def generate_normal_reads(params):
     yield 'Generating normal reads ..<br>'
     working_dir = '/easyscnvsim_lib/Wessim/'
-    reference = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/' + settings.INPUT_FILES['reference']
-    targets = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/' + settings.INPUT_FILES['targets']
-    output_prefix = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/normal'
+    reference = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/' + settings.INPUT_FILES['reference']
+    targets = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/' + settings.INPUT_FILES['targets']
+    output_prefix = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/normal'
     model_file = '/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip'
 
     command = "python /easyscnvsim_lib/Wessim/Wessim1.py" \
                      + " -R " + reference \
                      + " -B " + targets \
-                     + " -n " + settings.SIMULATION_PARAMETERS['number-of-reads'] \
-                     + " -l " + settings.SIMULATION_PARAMETERS['read-length'] \
+                     + " -n " + params['number-of-reads'] \
+                     + " -l " + params['read-length'] \
                      + " -M " + model_file \
                      + " -o " + output_prefix \
-                     + " -t " + settings.SIMULATION_PARAMETERS['number-of-threads'] \
+                     + " -t " + params['number-of-threads'] \
                      + " -p"
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
     while True:
@@ -203,20 +207,23 @@ def run_simulation():
         yield line + '<br>'
     yield 'Finished generating normal reads ..<br>'
 
-    # generate reads in the tumor folder
+
+def generate_tumor_read(params):
     yield 'Generating tumor reads from allele 1 ..<br>'
-    reference = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/allele_1.fa'
-    targets = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/' + settings.INPUT_FILES['targets']
-    output_prefix = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/tumor_allele1'
+    working_dir = '/easyscnvsim_lib/Wessim/'
+    reference = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/allele_1.fa'
+    targets = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/' + settings.INPUT_FILES['targets']
+    output_prefix = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/tumor_allele1'
+    model_file = '/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip'
 
     command = "python /easyscnvsim_lib/Wessim/Wessim1.py" \
                      + " -R " + reference \
                      + " -B " + targets \
-                     + " -n " + str(int(settings.SIMULATION_PARAMETERS['number-of-reads']) / 2) \
-                     + " -l " + settings.SIMULATION_PARAMETERS['read-length'] \
+                     + " -n " + str(int(params['number-of-reads']) / 2) \
+                     + " -l " + params['read-length'] \
                      + " -M " + model_file \
                      + " -o " + output_prefix \
-                     + " -t " + settings.SIMULATION_PARAMETERS['number-of-threads'] \
+                     + " -t " + params['number-of-threads'] \
                      + " -p"
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
     while True:
@@ -224,17 +231,17 @@ def run_simulation():
         if not line: break
         yield line + '<br>'
 
-    reference = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/allele_2.fa'
-    output_prefix = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/tumor_allele2'
+    reference = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/allele_2.fa'
+    output_prefix = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/tumor_allele2'
 
     command = "python /easyscnvsim_lib/Wessim/Wessim1.py" \
                      + " -R " + reference \
                      + " -B " + targets \
-                     + " -n " + str(int(settings.SIMULATION_PARAMETERS['number-of-reads']) / 2) \
-                     + " -l " + settings.SIMULATION_PARAMETERS['read-length'] \
+                     + " -n " + str(int(params['number-of-reads']) / 2) \
+                     + " -l " + params['read-length'] \
                      + " -M " + model_file \
                      + " -o " + output_prefix \
-                     + " -t " + settings.SIMULATION_PARAMETERS['number-of-threads'] \
+                     + " -t " + params['number-of-threads'] \
                      + " -p"
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
     while True:
@@ -244,8 +251,10 @@ def run_simulation():
 
     yield 'Finished generating tumor reads ..<br><br>'
 
+
+def clean_tmp(params):
     yield '<br>Cleaning temporary files ..<br>'
-    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/tumor/'
+    working_dir = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/tumor/'
     command = 'rm *.bed*;'
     command += 'rm ' + settings.INPUT_FILES['reference'] + '*'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
@@ -253,7 +262,7 @@ def run_simulation():
         line = p.stdout.readline()
         if not line: break
         yield line + '<br>'
-    working_dir = settings.DEFAULT_REFERENCE_PATH + settings.SIMULATION_PARAMETERS['output-prefix'].strip() + '/normal/'
+    working_dir = settings.DEFAULT_REFERENCE_PATH + params['output-prefix'].strip() + '/normal/'
     command = 'rm *.bed*;'
     p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True, cwd=working_dir)
     while True:
@@ -261,8 +270,45 @@ def run_simulation():
         if not line: break
         yield line + '<br>'
 
-    # bye bye
+
+def end_message():
     end_message = "<br><br>***********************************<br>"
     end_message += "******SIMULATIONCOMPLETED*****<br>"
     end_message += "***********************************<br>"
     yield end_message
+
+
+def run_simulation():
+    simulation_parameters = settings.SIMULATION_PARAMETERS
+
+    # print welcome message
+    for message in welcome_message(simulation_parameters):
+        yield message
+
+    # create normal folder
+    for message in create_normal_folder(simulation_parameters):
+        yield message
+
+    # create tumor folder
+    for message in create_tumor_folder(simulation_parameters):
+        yield message
+
+    # simulate the tumor genome there
+    for message in simulate_tumor_genome(simulation_parameters):
+        yield message
+
+    # generate reads in the normal folder
+    for message in generate_normal_reads(simulation_parameters):
+        yield message
+
+    # generate reads in the tumor folder
+    for message in generate_tumor_read(simulation_parameters):
+        yield message
+
+    # clean temporary files
+    for message in clean_tmp(simulation_parameters):
+        yield message
+
+    # bye bye
+    for message in end_message():
+        yield message
