@@ -12,7 +12,7 @@ def home(request):
 
 
 def simulation(request):
-    return StreamingHttpResponse(run_simulation())
+    return HttpResponse(run_simulation())
 
 
 @csrf_exempt

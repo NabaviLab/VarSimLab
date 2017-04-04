@@ -160,6 +160,6 @@ $('#run-simulation').click(function(){
     $.post( "/params", simulation_params )
         .done(function( data ) {
             // run simulation
-            window.open('/simulation', '_blank');
+            window.open('/simulation', '_self');
         });
 });
