@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Local Installation &mdash; AlgoPiper 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="AlgoPiper 1.0 documentation" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">AlgoPiper 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="local-installation">
+<h1>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this headline">¶</a></h1>
+<p><strong>NOTE:</strong> If you are going to use the online version of AlgoPiper, ignore this section!</p>
+<p>Thanks to the distributed architecture of the tool, AlgoManager and AlgoPiper can run on two different machines (locally or remotely).</p>
+<div class="section" id="install-prerequisites">
+<h2>Install Prerequisites<a class="headerlink" href="#install-prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>The only prerequisite is the Docker Engine: Follow the instructions on: <a class="reference external" href="https://docs.docker.com/engine/installation/">https://docs.docker.com/engine/installation/</a></p>
+</div>
+<div class="section" id="download-algomanager">
+<h2>Download AlgoManager<a class="headerlink" href="#download-algomanager" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Clone AlgoManager repository <a class="reference external" href="https://github.com/algorun/algomanager">https://github.com/algorun/algomanager</a></li>
+<li>Navigate to the downloaded folder.</li>
+<li>Run the script <code class="docutils literal"><span class="pre">run.sh</span></code></li>
+<li>Go to <a class="reference external" href="http://localhost:8080">http://localhost:8080</a> and make sure it is working</li>
+</ol>
+</div>
+<div class="section" id="configuring-the-production-environment">
+<h2>Configuring the Production Environment<a class="headerlink" href="#configuring-the-production-environment" title="Permalink to this headline">¶</a></h2>
+<p>If you want to set AlgoManager on a shared server, edit <code class="docutils literal"><span class="pre">algomanager/settings.py</span></code> file. Change <code class="docutils literal"><span class="pre">SERVER_PATH</span> <span class="pre">=</span> <span class="pre">'http://localhost'</span></code> to <code class="docutils literal"><span class="pre">SERVER_PATH</span> <span class="pre">=</span> <span class="pre">'http://server_IP'</span></code></p>
+</div>
+<div class="section" id="add-available-algorithms">
+<h2>Add Available Algorithms<a class="headerlink" href="#add-available-algorithms" title="Permalink to this headline">¶</a></h2>
+<p>Now, let AlgoManager be aware of what algorithms (AlgoRun containers) are available on your machine (or server).</p>
+<ol class="arabic simple">
+<li>Run docker <code class="docutils literal"><span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">algomanager</span> <span class="pre">bash</span></code></li>
+<li>Run <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">createsuperuser</span></code>. This will prompt you to create an admin user to manage the available algorithms on this algomanager instance.</li>
+<li>Now exit this bash using <code class="docutils literal"><span class="pre">exit</span></code>. Go to <a class="reference external" href="http://localhost:8080/admin/">http://localhost:8080/admin/</a>. Enter your newly created username and password. After you login, click on +Add, right beside Available Algorithms. Enter the name of the algorithm and its AlgoRun container. For example: <em>Name=REACT</em> and <em>Docker Image=algorun/react:latest</em>. Don&#8217;t forget to <code class="docutils literal"><span class="pre">docker</span> <span class="pre">pull</span></code> those images from Docker Hub, before you make them available.</li>
+</ol>
+</div>
+<div class="section" id="run-algopiper">
+<h2>Run AlgoPiper<a class="headerlink" href="#run-algopiper" title="Permalink to this headline">¶</a></h2>
+<p>AlgoPiper is available as a Docker image on Docker Hub.</p>
+<p>To run an instance of it, use <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-p</span> <span class="pre">8081:8765</span> <span class="pre">-e</span> <span class="pre">MANAGER=&lt;algomanager_url&gt;</span> <span class="pre">algorun/algopiper</span></code>, where <code class="docutils literal"><span class="pre">&lt;algomanager_url&gt;</span></code> is the url where AlgoManager is running. Now, navigate to <a class="reference external" href="http://localhost:8081">http://localhost:8081</a> to use it.</p>
+<p>Congraulations! You now have a fully working version of AlgoPiper :)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Local Installation</a><ul>
+<li><a class="reference internal" href="#install-prerequisites">Install Prerequisites</a></li>
+<li><a class="reference internal" href="#download-algomanager">Download AlgoManager</a></li>
+<li><a class="reference internal" href="#configuring-the-production-environment">Configuring the Production Environment</a></li>
+<li><a class="reference internal" href="#add-available-algorithms">Add Available Algorithms</a></li>
+<li><a class="reference internal" href="#run-algopiper">Run AlgoPiper</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/local-installation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">AlgoPiper 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2017, Abdelrahman Hosny.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
