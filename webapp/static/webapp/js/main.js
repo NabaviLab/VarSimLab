@@ -155,7 +155,8 @@ $('#run-simulation').click(function(){
                      "fold-coverage": $('#fold-coverage').val(),
                      "number-of-reads": $('#number-of-reads').val(),
                      "read-length": $('#read-length').val(),
-                     "number-of-threads": $('#number-of-threads').val()}
+                     "ploidy": $('#ploidy').val(),
+                     "subclones": $('#subclones').val()}
 
     $.post( "/params", simulation_params )
         .done(function( data ) {

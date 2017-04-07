@@ -41,9 +41,9 @@ def check_reference_ready():
     settings.REFERENCE_READY = True
     settings.INPUT_FILES = {"reference": data['reference'], "targets": data['targets']}
 
+
 def run_simulation():
     simulation_parameters = settings.SIMULATION_PARAMETERS
-    os.environ["SIMULATION_PARAMETERS"] = "Hosny"
 
     args = [settings.INPUT_FILES['reference'],
             settings.INPUT_FILES['targets'],
@@ -57,7 +57,7 @@ def run_simulation():
             simulation_parameters['number-of-reads'],
             simulation_parameters['read-length']]
     command = "nohup /easyscnvsim_lib/run.sh " + ' '.join(args) + " &"
-    p = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
+    _ = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
 
     web_message = '<b>Thank You For Choosing VarSimLab!</b><br><br>'
     web_message += 'Check the file ' + simulation_parameters['output-prefix'] + '/SIMULATION_IS_RUNNING.txt'
