@@ -55,7 +55,9 @@ def run_simulation():
             simulation_parameters['cnv-min-size'],
             simulation_parameters['cnv-max-size'],
             simulation_parameters['number-of-reads'],
-            simulation_parameters['read-length']]
+            simulation_parameters['read-length'],
+            simulation_parameters['ploidy'],
+            simulation_parameters['subclones']]
     command = "nohup /easyscnvsim_lib/run.sh " + ' '.join(args) + " &"
     _ = Popen(command, stdout=PIPE, stderr=STDOUT, shell=True)
 

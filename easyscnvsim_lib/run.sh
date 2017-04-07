@@ -12,8 +12,9 @@ CNV_MIN_SIZE=$8
 CNV_MAX_SIZE=$9
 NUMBER_OF_READS="${10}"
 READ_LENGTH="${11}"
+PLOIDY="${12}"
+SUBCLONES="${13}"
 SIMULATION_LOG_FILE=/ref/$OUTPUT_PREFIX/SIMULATION_IS_RUNNING.txt
-
 
 # create simulation directory
 mkdir -p /ref/$OUTPUT_PREFIX/normal

@@ -135,4 +135,6 @@ SIMULATION_PARAMETERS = {'snp-rate': '0.002', \
                          'output-prefix': 'my_sim', \
                          'number-of-threads': '2', \
                          'number-of-reads': '10000', \
-                         'read-length': '100'}
+                         'read-length': '100', \
+                         'ploidy': '2', \
+                         'subclones': '1'}
