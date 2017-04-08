@@ -71,7 +71,7 @@ def run_simulation():
     Follow up with the progress in the simulation progress file<br><br>'
     web_message += "You can also <a href='/'>go back</a> and run another simulation concurrently \
      by chancing the <i>Output Prefix</i> parameter and hit run again ..<br>"
-    web_message += "WARNING: This simulation eats up large mamory space. \
+    web_message += "WARNING: This simulation eats up large memory space. \
     Don't run multiple simulations unless you have enough RAM. You are advised to try only one simulation and \
      see how it goes first"
     return web_message
