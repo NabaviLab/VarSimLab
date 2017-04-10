@@ -1,77 +1,80 @@
-User Guide
------------
+Simulator User Guide
+--------------------
 
-.. note:: You can skip reading this section and learn to use AlgoPiper through an interactive step-by-step tutorial by the online instance of AlgoPiper
+.. note:: If you are familiar with Docker, you can skip reading this section and find the package on Docker Hub under **nabavilab/varsimlab:1.0**.
 
-.. image:: /images/figure-1.png
 
-.. centered:: Figure 1 - AlgoPiper Interface. (1) Main workspace to create a pipeline. (2) Pipelines are arranged into tabs. Click ‘+’ to add more pipelines. (3) Input node: represents input data to the pipeline. (4) Output node: is used to preview the output of the pipeline. (5) AlgoRun node: represents individual algorithms packaged using AlgoRun. (6) A tab to present detailed information about a selected node. (7) A tab to modify AlgoRun node parameters <algorithm parameters>. (8) A tab to present results from the output node. (9) A tab to present log information from debug node. (10) Deploy button to build a pipeline after creation.
+1. Installing Docker
+^^^^^^^^^^^^^^^^^^^^^
+Docker is supported on Linux, Mac and Windows amongst other operating systems too. So, you are guaranteed to get the tool running without worrying about installing other dependencies.
 
-1. Create Pipelines
+To install Docker:
+
+- **Linux (ubuntu):** https://docs.docker.com/engine/installation/linux/ubuntu/ (check left-side menu for other distributions)
+- **Mac:** https://docs.docker.com/docker-for-mac/install/
+- **Windows:** https://docs.docker.com/docker-for-windows/install/
+
+2. Prepare The Reference Genome
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+There are two ways to easily run VarSimLab for a reference genome
+
+1. Download a pre-prepared folder to use from http://nabavilab.uconn.edu/datasets/varsimlab/ .
+2. Prepare your own reference (super easy).
+
+To prepare a reference genome, follow these steps:
+
+1. Create a new folder to hold your files.
+2. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
+3. Copy targte regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables
+4. Create a text file and name it `manifest.json`. Put the following text after replacing the values of the keys with the name of the files you just copied. Save the file and close it.
+
+.. code-block:: json
+
+    {
+        "reference": "reference.fa",
+        "targets": "reference-targets.bed"
+    }
+
+
+That's it! Your reference is ready to generate reads from.
+
+3. Running VarSimLab
 ^^^^^^^^^^^^^^^^^^^^
+Navigate to the reference folder you created (or downloaded) above.
 
-To create a pipeline, drag and drop nodes from the left-side bar. A basic pipeline contains the following nodes:
+If you download one of our prepared reference genomes, you can simply execute `.run.sh` script. Once you see the below message, you can navigate to the web browser to http://localhost:8000
 
-• **Input node:** is used to upload data to the pipeline. Drag an input node to the main workspace. Double click on the node to type data in the input dialog or upload a file.
+.. image:: /images/docker-message.png
 
-.. image:: /images/figure-2.png
-        :align: center
+If you have prepared the folder yourself, execute the following command in the terminal.
 
-.. centered:: Figure 2 - Input node dialog
+.. code-block:: shell
 
-• **AlgoRun node(s):** each AlgoRun node represents an algorithm ready to be run on a given input. The input is passed to the node from the left. The output from the node is produced toward the right. Drag an AlgoRun node into the main workspace. Double click on the node to select an algorithm from the list.
+    docker run -v $(pwd):/ref -p 12345:8000 nabavilab/varsimlab:1.0
 
-.. image:: /images/figure-3.png
-        :align: center
+The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `12345` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:12345
 
-.. centered:: Figure 3 - AlgoRun node dialog
+.. note:: Make sure you see the message that says: **found all required simulation files in place; simulation is READY**. If you see a different message, that means you are not running the container from the current directory that contains `manifest.json` and/or other files.
 
-On the right sidebar, there are more tabs that show information about the selected algorithm:
+When you navigate to the web browser, you should see the following message
 
-    - **Info tab:** shows algorithm description, input and output formats, and a reference to the algorithm page.
-    - **Parameter tab:** shows algorithm parameters that can be changed dynamically.
+.. image:: /images/select-reference.png
 
-• **Output node:** previews the output from the pipeline in the output tab on the right.
+The package automatically detects the reference files and initiate the simulation engine for you.
 
-Connect the input node to the AlgoRun node by clicking on the small dot on the right of the input node to the small dot on the left of the AlgoRun node. Similarly, connect the small dot on the right of the AlgoRun node to the small dot on the left of the output node. After creating the pipeline, hit deploy on the top-right corner. 
+4. Select Simulation Parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+As the figure shows, all you need to do is to plug in your values for the different simulation parameters. You can leave the default values too.
 
-        
-2. Run Pipelines
-^^^^^^^^^^^^^^^^^^^^
-To run a pipeline, click on the small button on the left of the Input node. This will trigger the pipeline by passing the input to the next node (after the Input) in the pipeline. Output appears in the output tab on the right sidebar.
+.. image:: /images/modify-parameters.png
 
-.. image:: /images/figure-4.png
-        :align: center
-        
-.. centered:: Figure 4 - Run a pipeline and preview output
+The `output_prefix` is where the reads will be generated. If you run multiple simulations, make sure to use different output prefixes for each run. Once you are ready, hit run.
 
-.. Note:: If you cannot find the algorithm you are looking for, follow the guide on http://algorun.org/documentation to package it into an AlgoRun container. Submit the packaged algorithm to AlgoRun website http://algorun.org/submit-algorithm and it will automatically appear in the ‘choose’ list of the AlgoRun node.
+.. image:: /images/run-simulator.png
 
-
-3. Integrate Pipelines
-^^^^^^^^^^^^^^^^^^^^^^^
-
-After creating and testing the pipeline on some arbitrary data, integrate it into other software tools by adding an HTTP endpoint node before the first node in the pipeline (replacing the Input node) and an HTTP response node after the last node in the pipeline (replacing the output node). See the below images for an example.
-
-.. image:: /images/figure-5.png
-        :align: center
-        
-.. centered:: Figure 5 - Integrating a pipeline by adding an HTTP endpoint
-
-
-4. Share Pipelines
-^^^^^^^^^^^^^^^^^^^
-
-Select all pipeline nodes in the main workspace (ctrl+A), click on the top-right menu and choose to export to clipboard. The pipeline is exported into a `JSON <http://www.json.org/>`_ format.
-
-.. image:: /images/figure-6.png
-        :align: center
-        
-.. centered:: Figure 6 - Export a pipeline for sharing
-
-
-5. Submit Your Pipeline (Optional)
+5. Understanding Simulator Results
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you built your pipeline with AlgoPiper and want to share it publicly, do not hesitate to submit it for listing on the AlgoPiper website. The AlgoPiper website serves as a repository for all computational pipelines that were exported from AlgoPiper: http://algopiper.org 
+There are two folders inside the `output_prefix` folder.
 
-To submit your pipeline for listing, fill the form located at http://algopiper.org/submit-pipeline   
+- **Normal:** it will contain `.FASTQ` file for reads that represent the control (or normal) sample.
+- **Tumor:** it will contain `.FASTQ` file for reads that represent the tumor sample. In addition, it will contain the benchmark data that tells you where SNPs, Indels and CNVs for each allele in each subclone generated.

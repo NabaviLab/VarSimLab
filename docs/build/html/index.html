@@ -1,5 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!doctype html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,7 +9,7 @@
     
     <title>VarSimLab Documentation &mdash; VarSimLab 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,8 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
     <link rel="top" title="VarSimLab 1.0 documentation" href="#" />
-    <link rel="next" title="User Guide" href="user-guide.html" /> 
+    <link rel="next" title="Simulator User Guide" href="user-guide.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -34,46 +40,16 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="user-guide.html" title="User Guide"
+          <a href="user-guide.html" title="Simulator User Guide"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">VarSimLab 1.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="varsimlab-documentation">
-<h1>VarSimLab Documentation<a class="headerlink" href="#varsimlab-documentation" title="Permalink to this headline">¶</a></h1>
-<p>VarSimLab is a Docker-based package that generates artificial short reads, which harbor structural and copy number variations.
-With a web-based interface running locally, it not only provides a convenient way of using the package, but also runs efficiently generating data where it will be finally analyzed.
-In addition, VarSimLab comes with a visualization module to induce a better understanding of the generated data.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#create-pipelines">1. Create Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#run-pipelines">2. Run Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#integrate-pipelines">3. Integrate Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#share-pipelines">4. Share Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-guide.html#submit-your-pipeline-optional">5. Submit Your Pipeline (Optional)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
-</ul>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
+    </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
   <p class="topless"><a href="user-guide.html"
-                        title="next chapter">User Guide</a></p>
+                        title="next chapter">Simulator User Guide</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -96,6 +72,56 @@ In addition, VarSimLab comes with a visualization module to induce a better unde
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="varsimlab-documentation">
+<h1>VarSimLab Documentation<a class="headerlink" href="#varsimlab-documentation" title="Permalink to this headline">¶</a></h1>
+<p>VarSimLab is a Docker-based package that is designed to study genomic variations in a given genome.
+As of the current version (<strong>nabavilab/varsimlab:1.0</strong>), the simulator generates artificial short reads,
+which harbor structural and copy number variations.
+In addition, it simulates tumor heterozygosity (Ploidy and Subclones).</p>
+<p>With a web-based interface running locally, it not only provides a convenient way of using the package,
+but also runs efficiently generating data where it will be finally analyzed.</p>
+<p>The next version of VarSimLab will ship with a visualization module to induce a better understanding of the generated data.</p>
+<img alt="_images/figure-2.png" src="_images/figure-2.png" />
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-guide.html">Simulator User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#installing-docker">1. Installing Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#prepare-the-reference-genome">2. Prepare The Reference Genome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#running-varsimlab">3. Running VarSimLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#select-simulation-parameters">4. Select Simulation Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#understanding-simulator-results">5. Understanding Simulator Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#web-application">1. Web Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#simulating-snps-indels-and-cnvs">2. Simulating SNPs, Indels and CNVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#simulating-tumors">3. Simulating Tumors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#generating-short-reads">4. Generating Short Reads</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-docker">1. What is Docker?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-docker-different-from-a-virtual-machine-vm">2. How is Docker different from a Virtual Machine (VM)?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#do-i-need-to-learn-a-new-platform-to-run-the-simulator">3. Do I need to learn a new platform to run the simulator?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#do-i-need-to-be-a-docker-expert-to-use-varsimlab">4. Do I need to be a Docker expert to use VarSimLab?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#my-simulation-is-too-slow-what-should-i-do">5. My simulation is too slow. What should I do?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -105,7 +131,7 @@ In addition, VarSimLab comes with a visualization module to induce a better unde
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="user-guide.html" title="User Guide"
+          <a href="user-guide.html" title="Simulator User Guide"
              >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">VarSimLab 1.0 documentation</a> &raquo;</li> 
       </ul>

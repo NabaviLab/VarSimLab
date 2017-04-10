@@ -1,14 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!doctype html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User Guide &mdash; VarSimLab 1.0 documentation</title>
+    <title>Simulator User Guide &mdash; VarSimLab 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,9 +24,14 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
     <link rel="top" title="VarSimLab 1.0 documentation" href="index.html" />
-    <link rel="next" title="Need Help?" href="help.html" />
-    <link rel="prev" title="VarSimLab Documentation" href="index.html" /> 
+    <link rel="next" title="Methods" href="methods.html" />
+    <link rel="prev" title="VarSimLab Documentation" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,96 +41,24 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="help.html" title="Need Help?"
+          <a href="methods.html" title="Methods"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="VarSimLab Documentation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">VarSimLab 1.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="user-guide">
-<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You can skip reading this section and learn to use AlgoPiper through an interactive step-by-step tutorial by the online instance of AlgoPiper</p>
-</div>
-<img alt="_images/figure-1.png" src="_images/figure-1.png" />
-<p class="centered">
-<strong>Figure 1 - AlgoPiper Interface. (1) Main workspace to create a pipeline. (2) Pipelines are arranged into tabs. Click ‘+’ to add more pipelines. (3) Input node: represents input data to the pipeline. (4) Output node: is used to preview the output of the pipeline. (5) AlgoRun node: represents individual algorithms packaged using AlgoRun. (6) A tab to present detailed information about a selected node. (7) A tab to modify AlgoRun node parameters &lt;algorithm parameters&gt;. (8) A tab to present results from the output node. (9) A tab to present log information from debug node. (10) Deploy button to build a pipeline after creation.</strong></p><div class="section" id="create-pipelines">
-<h2>1. Create Pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
-<p>To create a pipeline, drag and drop nodes from the left-side bar. A basic pipeline contains the following nodes:</p>
-<ul class="simple">
-<li><strong>Input node:</strong> is used to upload data to the pipeline. Drag an input node to the main workspace. Double click on the node to type data in the input dialog or upload a file.</li>
-</ul>
-<img alt="_images/figure-2.png" class="align-center" src="_images/figure-2.png" />
-<p class="centered">
-<strong>Figure 2 - Input node dialog</strong></p><ul class="simple">
-<li><strong>AlgoRun node(s):</strong> each AlgoRun node represents an algorithm ready to be run on a given input. The input is passed to the node from the left. The output from the node is produced toward the right. Drag an AlgoRun node into the main workspace. Double click on the node to select an algorithm from the list.</li>
-</ul>
-<img alt="_images/figure-3.png" class="align-center" src="_images/figure-3.png" />
-<p class="centered">
-<strong>Figure 3 - AlgoRun node dialog</strong></p><p>On the right sidebar, there are more tabs that show information about the selected algorithm:</p>
-<blockquote>
-<div><ul class="simple">
-<li><strong>Info tab:</strong> shows algorithm description, input and output formats, and a reference to the algorithm page.</li>
-<li><strong>Parameter tab:</strong> shows algorithm parameters that can be changed dynamically.</li>
-</ul>
-</div></blockquote>
-<ul class="simple">
-<li><strong>Output node:</strong> previews the output from the pipeline in the output tab on the right.</li>
-</ul>
-<p>Connect the input node to the AlgoRun node by clicking on the small dot on the right of the input node to the small dot on the left of the AlgoRun node. Similarly, connect the small dot on the right of the AlgoRun node to the small dot on the left of the output node. After creating the pipeline, hit deploy on the top-right corner.</p>
-</div>
-<div class="section" id="run-pipelines">
-<h2>2. Run Pipelines<a class="headerlink" href="#run-pipelines" title="Permalink to this headline">¶</a></h2>
-<p>To run a pipeline, click on the small button on the left of the Input node. This will trigger the pipeline by passing the input to the next node (after the Input) in the pipeline. Output appears in the output tab on the right sidebar.</p>
-<img alt="_images/figure-4.png" class="align-center" src="_images/figure-4.png" />
-<p class="centered">
-<strong>Figure 4 - Run a pipeline and preview output</strong></p><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you cannot find the algorithm you are looking for, follow the guide on <a class="reference external" href="http://algorun.org/documentation">http://algorun.org/documentation</a> to package it into an AlgoRun container. Submit the packaged algorithm to AlgoRun website <a class="reference external" href="http://algorun.org/submit-algorithm">http://algorun.org/submit-algorithm</a> and it will automatically appear in the ‘choose’ list of the AlgoRun node.</p>
-</div>
-</div>
-<div class="section" id="integrate-pipelines">
-<h2>3. Integrate Pipelines<a class="headerlink" href="#integrate-pipelines" title="Permalink to this headline">¶</a></h2>
-<p>After creating and testing the pipeline on some arbitrary data, integrate it into other software tools by adding an HTTP endpoint node before the first node in the pipeline (replacing the Input node) and an HTTP response node after the last node in the pipeline (replacing the output node). See the below images for an example.</p>
-<img alt="_images/figure-5.png" class="align-center" src="_images/figure-5.png" />
-<p class="centered">
-<strong>Figure 5 - Integrating a pipeline by adding an HTTP endpoint</strong></p></div>
-<div class="section" id="share-pipelines">
-<h2>4. Share Pipelines<a class="headerlink" href="#share-pipelines" title="Permalink to this headline">¶</a></h2>
-<p>Select all pipeline nodes in the main workspace (ctrl+A), click on the top-right menu and choose to export to clipboard. The pipeline is exported into a <a class="reference external" href="http://www.json.org/">JSON</a> format.</p>
-<img alt="_images/figure-6.png" class="align-center" src="_images/figure-6.png" />
-<p class="centered">
-<strong>Figure 6 - Export a pipeline for sharing</strong></p></div>
-<div class="section" id="submit-your-pipeline-optional">
-<h2>5. Submit Your Pipeline (Optional)<a class="headerlink" href="#submit-your-pipeline-optional" title="Permalink to this headline">¶</a></h2>
-<p>If you built your pipeline with AlgoPiper and want to share it publicly, do not hesitate to submit it for listing on the AlgoPiper website. The AlgoPiper website serves as a repository for all computational pipelines that were exported from AlgoPiper: <a class="reference external" href="http://algopiper.org">http://algopiper.org</a></p>
-<p>To submit your pipeline for listing, fill the form located at <a class="reference external" href="http://algopiper.org/submit-pipeline">http://algopiper.org/submit-pipeline</a></p>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
+    </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">User Guide</a><ul>
-<li><a class="reference internal" href="#create-pipelines">1. Create Pipelines</a></li>
-<li><a class="reference internal" href="#run-pipelines">2. Run Pipelines</a></li>
-<li><a class="reference internal" href="#integrate-pipelines">3. Integrate Pipelines</a></li>
-<li><a class="reference internal" href="#share-pipelines">4. Share Pipelines</a></li>
-<li><a class="reference internal" href="#submit-your-pipeline-optional">5. Submit Your Pipeline (Optional)</a></li>
+<li><a class="reference internal" href="#">Simulator User Guide</a><ul>
+<li><a class="reference internal" href="#installing-docker">1. Installing Docker</a></li>
+<li><a class="reference internal" href="#prepare-the-reference-genome">2. Prepare The Reference Genome</a></li>
+<li><a class="reference internal" href="#running-varsimlab">3. Running VarSimLab</a></li>
+<li><a class="reference internal" href="#select-simulation-parameters">4. Select Simulation Parameters</a></li>
+<li><a class="reference internal" href="#understanding-simulator-results">5. Understanding Simulator Results</a></li>
 </ul>
 </li>
 </ul>
@@ -133,8 +67,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">VarSimLab Documentation</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="help.html"
-                        title="next chapter">Need Help?</a></p>
+  <p class="topless"><a href="methods.html"
+                        title="next chapter">Methods</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -157,6 +91,89 @@
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulator-user-guide">
+<h1>Simulator User Guide<a class="headerlink" href="#simulator-user-guide" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are familiar with Docker, you can skip reading this section and find the package on Docker Hub under <strong>nabavilab/varsimlab:1.0</strong>.</p>
+</div>
+<div class="section" id="installing-docker">
+<h2>1. Installing Docker<a class="headerlink" href="#installing-docker" title="Permalink to this headline">¶</a></h2>
+<p>Docker is supported on Linux, Mac and Windows amongst other operating systems too. So, you are guaranteed to get the tool running without worrying about installing other dependencies.</p>
+<p>To install Docker:</p>
+<ul class="simple">
+<li><strong>Linux (ubuntu):</strong> <a class="reference external" href="https://docs.docker.com/engine/installation/linux/ubuntu/">https://docs.docker.com/engine/installation/linux/ubuntu/</a> (check left-side menu for other distributions)</li>
+<li><strong>Mac:</strong> <a class="reference external" href="https://docs.docker.com/docker-for-mac/install/">https://docs.docker.com/docker-for-mac/install/</a></li>
+<li><strong>Windows:</strong> <a class="reference external" href="https://docs.docker.com/docker-for-windows/install/">https://docs.docker.com/docker-for-windows/install/</a></li>
+</ul>
+</div>
+<div class="section" id="prepare-the-reference-genome">
+<h2>2. Prepare The Reference Genome<a class="headerlink" href="#prepare-the-reference-genome" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to easily run VarSimLab for a reference genome</p>
+<ol class="arabic simple">
+<li>Download a pre-prepared folder to use from <a class="reference external" href="http://nabavilab.uconn.edu/datasets/varsimlab/">http://nabavilab.uconn.edu/datasets/varsimlab/</a> .</li>
+<li>Prepare your own reference (super easy).</li>
+</ol>
+<p>To prepare a reference genome, follow these steps:</p>
+<ol class="arabic simple">
+<li>Create a new folder to hold your files.</li>
+<li>Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser <a class="reference external" href="https://genome.ucsc.edu/cgi-bin/hgGateway">https://genome.ucsc.edu/cgi-bin/hgGateway</a></li>
+<li>Copy targte regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser <a class="reference external" href="https://genome.ucsc.edu/cgi-bin/hgTables">https://genome.ucsc.edu/cgi-bin/hgTables</a></li>
+<li>Create a text file and name it <cite>manifest.json</cite>. Put the following text after replacing the values of the keys with the name of the files you just copied. Save the file and close it.</li>
+</ol>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;reference&quot;</span><span class="p">:</span> <span class="s2">&quot;reference.fa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;targets&quot;</span><span class="p">:</span> <span class="s2">&quot;reference-targets.bed&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That&#8217;s it! Your reference is ready to generate reads from.</p>
+</div>
+<div class="section" id="running-varsimlab">
+<h2>3. Running VarSimLab<a class="headerlink" href="#running-varsimlab" title="Permalink to this headline">¶</a></h2>
+<p>Navigate to the reference folder you created (or downloaded) above.</p>
+<p>If you download one of our prepared reference genomes, you can simply execute <cite>.run.sh</cite> script. Once you see the below message, you can navigate to the web browser to <a class="reference external" href="http://localhost:8000">http://localhost:8000</a></p>
+<img alt="_images/docker-message.png" src="_images/docker-message.png" />
+<p>If you have prepared the folder yourself, execute the following command in the terminal.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/ref -p 12345:8000 nabavilab/varsimlab:1.0
+</pre></div>
+</div>
+<p>The <cite>-v</cite> option mounts the current folder to the container, where the pipeline will check for the reference files. The <cite>-p</cite> mounts links port <cite>8000</cite> from the container to port <cite>12345</cite> on you local machine (you can choose other ports too). Now, naviate to the web browser to <a class="reference external" href="http://localhost:12345">http://localhost:12345</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure you see the message that says: <strong>found all required simulation files in place; simulation is READY</strong>. If you see a different message, that means you are not running the container from the current directory that contains <cite>manifest.json</cite> and/or other files.</p>
+</div>
+<p>When you navigate to the web browser, you should see the following message</p>
+<img alt="_images/select-reference.png" src="_images/select-reference.png" />
+<p>The package automatically detects the reference files and initiate the simulation engine for you.</p>
+</div>
+<div class="section" id="select-simulation-parameters">
+<h2>4. Select Simulation Parameters<a class="headerlink" href="#select-simulation-parameters" title="Permalink to this headline">¶</a></h2>
+<p>As the figure shows, all you need to do is to plug in your values for the different simulation parameters. You can leave the default values too.</p>
+<img alt="_images/modify-parameters.png" src="_images/modify-parameters.png" />
+<p>The <cite>output_prefix</cite> is where the reads will be generated. If you run multiple simulations, make sure to use different output prefixes for each run. Once you are ready, hit run.</p>
+<img alt="_images/run-simulator.png" src="_images/run-simulator.png" />
+</div>
+<div class="section" id="understanding-simulator-results">
+<h2>5. Understanding Simulator Results<a class="headerlink" href="#understanding-simulator-results" title="Permalink to this headline">¶</a></h2>
+<p>There are two folders inside the <cite>output_prefix</cite> folder.</p>
+<ul class="simple">
+<li><strong>Normal:</strong> it will contain <cite>.FASTQ</cite> file for reads that represent the control (or normal) sample.</li>
+<li><strong>Tumor:</strong> it will contain <cite>.FASTQ</cite> file for reads that represent the tumor sample. In addition, it will contain the benchmark data that tells you where SNPs, Indels and CNVs for each allele in each subclone generated.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -166,7 +183,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="help.html" title="Need Help?"
+          <a href="methods.html" title="Methods"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="VarSimLab Documentation"

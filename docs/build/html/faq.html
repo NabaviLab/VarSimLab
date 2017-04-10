@@ -1,0 +1,156 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FAQs &mdash; VarSimLab 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="top" title="VarSimLab 1.0 documentation" href="index.html" />
+    <link rel="next" title="Need Help?" href="help.html" />
+    <link rel="prev" title="Methods" href="methods.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="help.html" title="Need Help?"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="methods.html" title="Methods"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">VarSimLab 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FAQs</a><ul>
+<li><a class="reference internal" href="#what-is-docker">1. What is Docker?</a></li>
+<li><a class="reference internal" href="#how-is-docker-different-from-a-virtual-machine-vm">2. How is Docker different from a Virtual Machine (VM)?</a></li>
+<li><a class="reference internal" href="#do-i-need-to-learn-a-new-platform-to-run-the-simulator">3. Do I need to learn a new platform to run the simulator?</a></li>
+<li><a class="reference internal" href="#do-i-need-to-be-a-docker-expert-to-use-varsimlab">4. Do I need to be a Docker expert to use VarSimLab?</a></li>
+<li><a class="reference internal" href="#my-simulation-is-too-slow-what-should-i-do">5. My simulation is too slow. What should I do?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="methods.html"
+                        title="previous chapter">Methods</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="help.html"
+                        title="next chapter">Need Help?</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="faqs">
+<h1>FAQs<a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-docker">
+<h2>1. What is Docker?<a class="headerlink" href="#what-is-docker" title="Permalink to this headline">¶</a></h2>
+<p>Docker is the world&#8217;s leading software containerization platform. Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.</p>
+<p>read more on Docker website: <a class="reference external" href="http://www.docker.com">http://www.docker.com</a></p>
+</div>
+<div class="section" id="how-is-docker-different-from-a-virtual-machine-vm">
+<h2>2. How is Docker different from a Virtual Machine (VM)?<a class="headerlink" href="#how-is-docker-different-from-a-virtual-machine-vm" title="Permalink to this headline">¶</a></h2>
+<p>The below image summarizes how Docker is different from virtual machines from a technical point of view. Docker is very lightweight compared to a virtual machine, which makes it the ideal solution for wrapping software dependencies in a standard unit that runs on any machine where Docker engine is installed. Containers running on a single machine share the same operating system kernel; they start instantly and use less RAM. Images are constructed from layered filesystems and share common files, making disk usage and image downloads much more efficient.</p>
+<img alt="_images/figure-1.png" src="_images/figure-1.png" />
+</div>
+<div class="section" id="do-i-need-to-learn-a-new-platform-to-run-the-simulator">
+<h2>3. Do I need to learn a new platform to run the simulator?<a class="headerlink" href="#do-i-need-to-learn-a-new-platform-to-run-the-simulator" title="Permalink to this headline">¶</a></h2>
+<p><strong>NO</strong>. VarSimLab has a web interface that does the dirty work for you. The pipeline is fully automated from A to Z.</p>
+</div>
+<div class="section" id="do-i-need-to-be-a-docker-expert-to-use-varsimlab">
+<h2>4. Do I need to be a Docker expert to use VarSimLab?<a class="headerlink" href="#do-i-need-to-be-a-docker-expert-to-use-varsimlab" title="Permalink to this headline">¶</a></h2>
+<p><strong>NO</strong>. You run only one command to get the application running. If you are using one of our hosted reference genomes at <a class="reference external" href="http://nabavilab.uconn.edu/datasets/varsimlab">http://nabavilab.uconn.edu/datasets/varsimlab</a> , you will just need to execute the file <cite>./run.sh</cite> and go to your web browser to initiate simulaitons.</p>
+</div>
+<div class="section" id="my-simulation-is-too-slow-what-should-i-do">
+<h2>5. My simulation is too slow. What should I do?<a class="headerlink" href="#my-simulation-is-too-slow-what-should-i-do" title="Permalink to this headline">¶</a></h2>
+<p>There may be several legitimate reasons for that:</p>
+<ul class="simple">
+<li><strong>The size of the genome is big:</strong> For example, using the whole human genome (~3GB) takes time for processing variations and generating reads for that size of a file. Just give the simulator its time to go through all the pipeline steps. We recommend to use one chromosome at a time when you need to simulate the variations in large genomes.</li>
+<li><strong>Using Mac or Windows?</strong> Make sure to properly increase the amount of memory and CPU available to Docker daemon. By default, when installing Docker on Windows or Mac, it is configured to have a limit of 2GB of RAM and 2 CPU cores to use across all running containers. Use the instructions here: <a class="reference external" href="https://docs.docker.com/docker-for-mac/#advanced">https://docs.docker.com/docker-for-mac/#advanced</a> for Mac and <a class="reference external" href="https://docs.docker.com/docker-for-windows/#advanced">https://docs.docker.com/docker-for-windows/#advanced</a> for Windows.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="help.html" title="Need Help?"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="methods.html" title="Methods"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">VarSimLab 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2017, Abdelrahman Hosny.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -6,7 +6,7 @@ import json
 
 
 def _log(message):
-    print("EasySCNVSim: " + str(message))
+    print("VarSimLab 1.0: " + str(message))
 
 
 def check_reference_ready():
