@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Methods &mdash; VarSimLab 1.0 documentation</title>
+    <title>Simulator Methods &mdash; VarSimLab 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -53,8 +53,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Methods</a><ul>
-<li><a class="reference internal" href="#web-application">1. Web Application</a></li>
+<li><a class="reference internal" href="#">Simulator Methods</a><ul>
+<li><a class="reference internal" href="#the-docker-package">1. The Docker Package</a></li>
 <li><a class="reference internal" href="#simulating-snps-indels-and-cnvs">2. Simulating SNPs, Indels and CNVs</a></li>
 <li><a class="reference internal" href="#simulating-tumors">3. Simulating Tumors</a></li>
 <li><a class="reference internal" href="#generating-short-reads">4. Generating Short Reads</a></li>
@@ -96,19 +96,26 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="methods">
-<h1>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="web-application">
-<h2>1. Web Application<a class="headerlink" href="#web-application" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="simulator-methods">
+<h1>Simulator Methods<a class="headerlink" href="#simulator-methods" title="Permalink to this headline">¶</a></h1>
+<p>The full source code of the project can be found on GitHub at <a class="reference external" href="https://github.com/NabaviLab/VarSimLab">https://github.com/NabaviLab/VarSimLab</a></p>
+<div class="section" id="the-docker-package">
+<h2>1. The Docker Package<a class="headerlink" href="#the-docker-package" title="Permalink to this headline">¶</a></h2>
+<p>The web application is written in <a class="reference external" href="https://www.djangoproject.com/">Python Django</a> . The pipeline is a sequence of shell scripts used according to the simulation parameters. The package is built with <a class="reference external" href="https://www.docker.com">Docker</a></p>
 </div>
 <div class="section" id="simulating-snps-indels-and-cnvs">
 <h2>2. Simulating SNPs, Indels and CNVs<a class="headerlink" href="#simulating-snps-indels-and-cnvs" title="Permalink to this headline">¶</a></h2>
+<p>This step uses <a class="reference external" href="https://sourceforge.net/projects/sincsimulator/">SInC</a></p>
+<p><em>Pattnaik, Swetansu, et al. &#8220;SInC: an accurate and fast error-model based simulator for SNPs, Indels and CNVs coupled with a read generator for short-read sequence data.&#8221; BMC bioinformatics 15.1 (2014): 40.</em></p>
 </div>
 <div class="section" id="simulating-tumors">
 <h2>3. Simulating Tumors<a class="headerlink" href="#simulating-tumors" title="Permalink to this headline">¶</a></h2>
+<p>Tumor Ploidy is implemented by re-running SInC to generate more than 2 alleles. Tumor subclone is done by iteratively going through all above simulation steps to generate different aberrant genomes for different subclones.</p>
 </div>
 <div class="section" id="generating-short-reads">
 <h2>4. Generating Short Reads<a class="headerlink" href="#generating-short-reads" title="Permalink to this headline">¶</a></h2>
+<p>This step utilizes <a class="reference external" href="https://github.com/sak042/Wessim">Wessim</a></p>
+<p><em>Kim, Sangwoo, Kyowon Jeong, and Vineet Bafna. &#8220;Wessim: a whole-exome sequencing simulator based on in silico exome capture.&#8221; Bioinformatics (2013): btt074.</em></p>
 </div>
 </div>
 

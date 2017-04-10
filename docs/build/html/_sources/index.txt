@@ -11,8 +11,6 @@ but also runs efficiently generating data where it will be finally analyzed.
 
 The next version of VarSimLab will ship with a visualization module to induce a better understanding of the generated data.
 
-.. image:: /images/figure-2.png
-
 .. toctree::
    :maxdepth: 3
 
@@ -20,3 +18,5 @@ The next version of VarSimLab will ship with a visualization module to induce a 
    methods
    faq
    help
+
+.. image:: /images/figure-2.png
