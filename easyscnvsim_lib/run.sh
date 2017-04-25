@@ -66,7 +66,7 @@ rm *.fa.fai
 
 # concatenate all reads
 cd /ref/$OUTPUT_PREFIX/normal
-cat normal/*.fastq > normal_all_reads.fastq
+cat *.fastq > normal_all_reads.fastq
 rm normal_1.fastq
 rm normal_2.fastq
 
