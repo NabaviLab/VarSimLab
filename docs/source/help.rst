@@ -1,4 +1,9 @@
 Need Help?
 ----------
 
-Please contact Abdelrahman at `http://www.abdelrahmanhosny.me <http://www.abdelrahmanhosny.me>`_
+Help us improve the current version of VarSimLab by:
+- Reporting bus
+- Suggesting improvements
+- Contributing to the project
+
+Please contact Abdelrahman at abdelrahman.hosny@ieee.org

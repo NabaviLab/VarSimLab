@@ -40,9 +40,11 @@ That's it! Your reference is ready to generate reads from.
 
 3. Running VarSimLab
 ^^^^^^^^^^^^^^^^^^^^
-Navigate to the reference folder you created (or downloaded) above.
+**Navigate to the reference folder you created (or downloaded) above.**
 
-If you download one of our prepared reference genomes, you can simply execute `.run.sh` script. Once you see the below message, you can navigate to the web browser to http://localhost:8000
+If you download one of our prepared reference genomes, you can simply execute `run.sh` script. Once you see the below message, you can navigate to the web browser to http://localhost:8000
+
+.. note:: If you are using Docker for Windows, the command inside `run.sh` will not correctly mount the your host directory to the container. You wil have to run the container manually as indicated below.
 
 .. image:: /images/docker-message.png
 
@@ -51,6 +53,8 @@ If you have prepared the folder yourself, execute the following command in the t
 .. code-block:: shell
 
     docker run -v $(pwd):/ref -p 12345:8000 nabavilab/varsimlab:1.0
+
+    [For Windows] docker run -v c:/Users/[path]:/ref -p 12345:8000 nabavilab/varsimlab:1.0
 
 The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `12345` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:12345
 
