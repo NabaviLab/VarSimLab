@@ -44,7 +44,7 @@ That's it! Your reference is ready to generate reads from.
 
 If you download one of our prepared reference genomes, you can simply execute `run.sh` script. Once you see the below message, you can navigate to the web browser to http://localhost:8000
 
-.. note:: If you are using Docker for Windows, the command inside `run.sh` will not correctly mount the your host directory to the container. You wil have to run the container manually as indicated below.
+.. note:: If you are using Docker for Windows, the command inside `run.sh` will not correctly mount your host directory to the container. You wil have to run the container manually as indicated below.
 
 .. image:: /images/docker-message.png
 
