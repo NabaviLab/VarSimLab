@@ -46,6 +46,9 @@ If you download one of our prepared reference genomes, you can simply execute `r
 
 .. note:: If you are using Docker for Windows, the command inside `run.sh` will not correctly mount your host directory to the container. You wil have to run the container manually as indicated below.
 
+
+.. note:: If you are using Docker for Windows, the reference folder should be downloaded to a directory where Docker has administrative access. In most cases, you should use the **C Drive**, not any other drive.
+
 .. image:: /images/docker-message.png
 
 If you have prepared the folder yourself, execute the following command in the terminal.
@@ -54,7 +57,9 @@ If you have prepared the folder yourself, execute the following command in the t
 
     docker run -v $(pwd):/ref -p 12345:8000 nabavilab/varsimlab:1.0
 
-    [For Windows] docker run -v c:/Users/[path]:/ref -p 12345:8000 nabavilab/varsimlab:1.0
+    [For Windows] docker run -v /c/Users/hg19-chr1/chr1/:/ref -p 1537:8000 nabavilab/varsimlab:1.0
+
+.. note:: 12345 is an arbitrary port number. If the Docker container does not start because this port is unavailable, try other port numbers in the range [49152, 65535]
 
 The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `12345` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:12345
 
