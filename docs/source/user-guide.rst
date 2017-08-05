@@ -25,7 +25,7 @@ To prepare a reference genome, follow these steps:
 
 1. Create a new folder to hold your files.
 2. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
-3. Copy targte regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables
+3. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables
 4. Create a text file and name it `manifest.json`. Put the following text after replacing the values of the keys with the name of the files you just copied. Save the file and close it.
 
 .. code-block:: json

@@ -498,6 +498,7 @@ def readGen1(ref,refLen,readLen,genos,inter,mx1,insD1,delD1,gQ,bQ,iQ,qual):
 		ind=ind + extrabase
 	return read, ind, dir, quals
 
+
 def readGenp(ref, refLen, readLen1, readLen2, genos, mx1, insD1, delD1, gQ, bQ, iQ, qual):
 	"""Generates a pair of reads from given DNA fragment."""
 	cRef = comp(ref)[::-1]
@@ -517,6 +518,7 @@ def readGenp(ref, refLen, readLen1, readLen2, genos, mx1, insD1, delD1, gQ, bQ, 
 		return read1, ind1, dir1, quals1, read2, ind2, dir2, quals2
 	else:
 		return read2, ind2, dir2, quals2, read1, ind1, dir1, quals1
+
 
 def readGen2(reference,cRef,pos,dir,readLen,genos,inter,mx2,insD2,delD2,gQ,bQ,iQ,qual):
 	"""Generates the 2nd read of a random pair of reads."""
