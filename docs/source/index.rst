@@ -2,7 +2,7 @@ VarSimLab Documentation
 ========================
 
 VarSimLab is a Docker-based package that is designed to study genomic variations in a given genome.
-As of the current version (**nabavilab/varsimlab:1.0**), the simulator generates artificial short reads,
+As of the current version (**nabavilab/varsimlab:0.1**), the simulator generates artificial short reads,
 which harbor structural and copy number variations.
 In addition, it simulates tumor heterozygosity (Ploidy and Subclones).
 
