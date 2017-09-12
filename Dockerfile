@@ -15,6 +15,11 @@ RUN apt-get install -y zlib1g-dev libcurl4-openssl-dev python-dev libxml2-dev li
 RUN pip install pysam && \
     pip install numpy
 
+# add external software libraries
+ADD easyscnvsim_lib /easyscnvsim_lib
+WORKDIR /easyscnvsim_lib/pblat
+RUN make
+
 # add web app
 RUN mkdir /easyscnvsim
 WORKDIR /easyscnvsim
@@ -27,10 +32,6 @@ ADD manage.py /easyscnvsim/manage.py
 
 RUN python manage.py migrate
 
-# add external software libraries
-ADD easyscnvsim_lib /easyscnvsim_lib
-WORKDIR /easyscnvsim_lib/pblat
-RUN make
 
 EXPOSE 8000
 ENTRYPOINT ["python", "/easyscnvsim/manage.py", "runserver", "0.0.0.0:8000"]
