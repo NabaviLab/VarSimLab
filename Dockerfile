@@ -29,6 +29,8 @@ RUN python manage.py migrate
 
 # add external software libraries
 ADD easyscnvsim_lib /easyscnvsim_lib
+WORKDIR /easyscnvsim_lib/pblat
+RUN make
 
 EXPOSE 8000
 ENTRYPOINT ["python", "/easyscnvsim/manage.py", "runserver", "0.0.0.0:8000"]

@@ -6,7 +6,7 @@ import json
 
 
 def _log(message):
-    print("VarSimLab 1.0: " + str(message))
+    print("VarSimLab 0.0.2: " + str(message))
 
 
 def check_reference_ready():
