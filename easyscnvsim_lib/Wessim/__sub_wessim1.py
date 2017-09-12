@@ -23,13 +23,15 @@ def main(argv):
 	group2.add_argument('-d', metavar = 'INT', type=int, dest='fragsd', required=False, help='standard (d)eviation of fragment size [50]', default=50)
 	group2.add_argument('-m', metavar = 'INT', type=int, dest='fragmin', required=False, help='(m)inimum fragment length [read_length + 20 for single-end, 2*read_length + 20 for paired-end]')
 	group2.add_argument('-y', metavar = 'PERCENT',type=int, dest='bind', required=False, help='minimum required fraction of probe match to be h(y)bridized [50]', default=50) 
-	
+	group2.add_argument('-x', metavar = 'INT',type=int, dest='slack', required=False, help='slack margin of the given boundaries [0]', default=0) 
+
 	group3 = parser.add_argument_group('Parameters for sequencing')
 	group3.add_argument('-p', action='store_true', help='generate paired-end reads [single]')
 	group3.add_argument('-n', help='do not care')
 	group3.add_argument('-1', metavar = 'INT', type=int, dest='readstart', required=True, help='start number of read')
 	group3.add_argument('-2', metavar = 'INT', type=int, dest='readend', required=True, help='end number of read')
-	group3.add_argument('-l', metavar = 'INT', type=int, dest='readlength', required=True, help='read (l)ength (bp)')
+	group3.add_argument('-l', metavar = 'INTord', dest='readlength', required=True, help='read (l)ength (bp)')
+        #group3.add_argument('-l', metavar = 'INT', type=int, dest='readlength', required=True, help='read (l)ength (bp)')
 	group3.add_argument('-i', metavar = 'INT', type=int, dest='processid', required=True, help='subprocess (i)d')
 	group3.add_argument('-M', metavar = 'FILE', dest='model', required=True, help='GemSim (M)odel file (.gzip)')
 	group3.add_argument('-t', help='do not care')
@@ -58,9 +60,9 @@ def main(argv):
 	readend = args.readend		
 	if imin==None:
 		if paired:
-			imin = readlength + 20
+			imin = int(readlength) + 20
 		else:
-			imin = readlength + 20
+			imin = int(readlength) + 20
 	if isize < imin:
 		print "too small mean fragment size (" + str(isize) + ") compared to minimum length (" + str(imin) + "). Increase it and try again."
 		sys.exit(0) 
@@ -163,7 +165,7 @@ def main(argv):
 		iQList.append(bisect_choiceTUP(iL))
 	#choose read length
 	if readlength=='d':
-		rdlog.info('Using empirical read length distribution')
+		print('Using empirical read length distribution') ################################################################
 		lgth=[]
 		keys=rdLenD.keys()
 		keys.sort()
@@ -211,7 +213,7 @@ def main(argv):
 			ln1=RL()
 			ln2=RL()
 			inter = isize
-			read1,pos1,dir1,quals1,read2,pos2,dir2,quals2 = readGenp(ref,refLen,ln1,ln2,gens(),mx1,insDict1,delDict1,gQList,bQList,iQList,qualbase)
+			read1,pos1,dir1,quals1,read2,pos2,dir2,quals2 = readGenp(ref,refLen,ln1,ln2,gens(),mx1,insDict1,delDict1,gQList,bQList,iQList,qualbase,isize,isd,imin)############################
 			p1 = fragment_chrom + "_" + str(fragment_start + pos1 + 1) + "_" + dirtag[dir1]
 			p2 = fragment_chrom + "_" + str(fragment_start + pos2 + 1) + "_" + dirtag[dir2]
 			if val > unAlign0+unAlign1:
@@ -275,6 +277,7 @@ def getFragmentUniform(abdlist, seqlist, last, mu, total, bind):
 		seq = seqlist[ind][1]
 		seqlen = len(seq)
 		if seqlen < mu:
+			print pos,ind,seqlen,mu
 			continue
 		margin = seqlen - mu
 		start = random.randint(0, margin)
@@ -498,19 +501,26 @@ def readGen1(ref,refLen,readLen,genos,inter,mx1,insD1,delD1,gQ,bQ,iQ,qual):
 		ind=ind + extrabase
 	return read, ind, dir, quals
 
-
-def readGenp(ref, refLen, readLen1, readLen2, genos, mx1, insD1, delD1, gQ, bQ, iQ, qual):
+def readGenp(ref, refLen, readLen1, readLen2, genos, mx1, insD1, delD1, gQ, bQ, iQ, qual,mu,sigma,lower):#############################################################################################
 	"""Generates a pair of reads from given DNA fragment."""
-	cRef = comp(ref)[::-1]
-	extrabase = 10
-	ind1 = 0
-	ind2 = refLen - readLen2 
-	end1 = readLen1 + extrabase
-	end2 = ind2 + readLen2
-	dir1=1
-	dir2=2
-	read1 = ref[ind1:end1]
-	read2 = cRef[ind1:end1]
+	############################################################################################################################################
+	extrabase=10
+	maxstart=-1#######
+	while maxstart<0:#######
+		ins = getInsertLength(mu, sigma, lower) #######
+		maxstart=refLen-ins+1 #######
+	fragstart=random.randint(0,maxstart)
+	frag =ref[fragstart:fragstart+ins] #######
+	cfrag = comp(frag)[::-1]#######
+	dir1=1#######
+	dir2=2#######
+	ind1=0#######
+	if readLen1>ins: readLen1=ins######
+	if readLen2>ins: readLen2=ins######
+	ind2=fragstart+ins-readLen2#######
+	read1 = frag[0:readLen1-1+extrabase]#######
+	read2 = cfrag[0:readLen2-1+extrabase]#######
+	############################################################################################################################################
 	read1, quals1 = mkErrors(read1, readLen1, mx1, insD1, delD1, gQ, bQ, iQ, qual)
 	read2, quals2 = mkErrors(read2, readLen2, mx1, insD1, delD1, gQ, bQ, iQ, qual)
 	pairorder = random.randint(1,2)
@@ -518,7 +528,6 @@ def readGenp(ref, refLen, readLen1, readLen2, genos, mx1, insD1, delD1, gQ, bQ, 
 		return read1, ind1, dir1, quals1, read2, ind2, dir2, quals2
 	else:
 		return read2, ind2, dir2, quals2, read1, ind1, dir1, quals1
-
 
 def readGen2(reference,cRef,pos,dir,readLen,genos,inter,mx2,insD2,delD2,gQ,bQ,iQ,qual):
 	"""Generates the 2nd read of a random pair of reads."""
@@ -609,7 +618,8 @@ def mkErrors(read,readLen,mx,insD,delD,gQ,bQ,iQ,qual):
 	d4=inds[prev[0]]
 	d5=inds[after]	
 	pos+=1
-	while pos<=readLen and pos<len(read)-4:				 
+	while pos<=readLen and pos<len(read)-4:
+		deleted='no' ########################################added				 
 		d0 = pos
 		d4 = d3
 		d3 = d2
@@ -702,6 +712,8 @@ def mkErrors(read,readLen,mx,insD,delD,gQ,bQ,iQ,qual):
 		if index in delD:
 			delete=delD[index]()
 			read=read[:pos+4]+read[pos+delete+4:]
+                        if delete>0: ###############################################################
+                                deleted='yes' ###############################################################
 		if index in insD:
 			insert=insD[index]()
 			read=read[:pos+4]+insert+read[pos+4:]
@@ -718,7 +730,8 @@ def mkErrors(read,readLen,mx,insD,delD,gQ,bQ,iQ,qual):
 						qualslist.append(chr(2+qual))
 			pos+=len(insert)
 		pos+=1
-	qualslist.append(qualslist[-1])
+        if deleted=='no' or pos==len(read)-4: ###############################################################
+		qualslist.append(qualslist[-1])
 	readback = read
 	read=read[4:readLen+4]
 	quals=''.join(qualslist)[:readLen]

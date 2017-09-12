@@ -54,7 +54,7 @@ cd /easyscnvsim_lib/Wessim/
 NORMAL_REFERENCE=/ref/$OUTPUT_PREFIX/normal/$REFERENCE
 NORMAL_TARGET=/ref/$OUTPUT_PREFIX/normal/$TARGET
 NORMAL_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/normal/normal
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
 python Wessim1.py -R $NORMAL_REFERENCE -B $NORMAL_TARGET -n $NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $NORMAL_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 
@@ -150,7 +150,7 @@ TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele1
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
 python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 # allele 2
 cd /easyscnvsim_lib/Wessim/
@@ -159,7 +159,7 @@ TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
 python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 # allele 3
@@ -170,7 +170,7 @@ cd /easyscnvsim_lib/Wessim/
     TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele3
     TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
     TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
     python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
     printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 fi
