@@ -40,17 +40,14 @@ printf "Read Length: "$READ_LENGTH"\n\n" >> $SIMULATION_LOG_FILE
 # creating and copying files
 printf "Copying temporary files for normal reads ..\n" >> $SIMULATION_LOG_FILE
 cp /ref/$REFERENCE /ref/$OUTPUT_PREFIX/normal
-cp /ref/$TARGET /ref/$OUTPUT_PREFIX/normal
 printf "Copying temporary files for tumor reads ..\n\n" >> $SIMULATION_LOG_FILE
 for i in `seq 1 $SUBCLONES`
 do
     cp /ref/$REFERENCE /ref/$OUTPUT_PREFIX/tumor/subclone_$i
-    cp /ref/$TARGET /ref/$OUTPUT_PREFIX/tumor/subclone_$i
 done
 
 # generate normal reads
 NORMAL_REFERENCE=/ref/$OUTPUT_PREFIX/normal/$REFERENCE
-NORMAL_TARGET=/ref/$OUTPUT_PREFIX/normal/$TARGET
 NORMAL_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/normal/normal
 MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
 
@@ -152,7 +149,6 @@ rm $REFERENCE
 
 cd /easyscnvsim_lib/Wessim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1.fa
-TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele1
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
@@ -166,7 +162,6 @@ python Wessim2.py -R $TUMOR_REFERENCE -P lib/S0293689_Probes.txt.fa -B allele1_m
 # allele 2
 cd /easyscnvsim_lib/Wessim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
-TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
@@ -182,7 +177,6 @@ printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FIL
 if (( $PLOIDY == 3)); then
 cd /easyscnvsim_lib/Wessim/
     TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_3.fa
-    TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
     TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele3
     TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
     TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))

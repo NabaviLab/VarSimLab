@@ -25,14 +25,12 @@ To prepare a reference genome, follow these steps:
 
 1. Create a new folder to hold your files.
 2. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
-3. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables
 4. Create a text file and name it `manifest.json`. Put the following text after replacing the values of the keys with the name of the files you just copied. Save the file and close it.
 
 .. code-block:: json
 
     {
-        "reference": "reference.fa",
-        "targets": "reference-targets.bed"
+        "reference": "reference.fa"
     }
 
 
@@ -55,13 +53,13 @@ If you have prepared the folder yourself, execute the following command in the t
 
 .. code-block:: shell
 
-    docker run -v $(pwd):/ref -p 12345:8000 nabavilab/varsimlab
+    docker run -v $(pwd):/ref -p 31331:8000 nabavilab/varsimlab
 
-    [For Windows] docker run -v /c/Users/hg19-chr1/chr1/:/ref -p 1537:8000 nabavilab/varsimlab
+    [For Windows] docker run -v /c/Users/hg19-chr1/chr1/:/ref -p 31331:8000 nabavilab/varsimlab
 
-.. note:: 12345 is an arbitrary port number. If the Docker container does not start because this port is unavailable, try other port numbers in the range [49152, 65535]
+.. note:: 31331 is an arbitrary port number. If the Docker container does not start because this port is unavailable, try other port numbers in the range [49152, 65535]
 
-The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `12345` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:12345
+The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `31331` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:31331
 
 .. note:: Make sure you see the message that says: **found all required simulation files in place; simulation is READY**. If you see a different message, that means you are not running the container from the current directory that contains `manifest.json` and/or other files.
 

@@ -26,20 +26,15 @@ def check_reference_ready():
     with open(manifest_file, 'r') as manifest:
         data = json.load(manifest)
         reference_fasta = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["reference"])
-        target_file = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["targets"])
 
     if not os.path.isfile(reference_fasta):
         _log("genome reference file (.fasta | .fa) cannot be found in the reference folder; simulation will NOT work!")
         return
 
-    if not os.path.isfile(target_file):
-        _log("targets file (.bed) cannot be found in the reference folder; simulation will NOT work!")
-        return
-
     _log("found all required simulation files in place; simulation is READY!")
 
     settings.REFERENCE_READY = True
-    settings.INPUT_FILES = {"reference": data['reference'], "targets": data['targets']}
+    settings.INPUT_FILES = {"reference": data['reference'], "targets": 'dummy'}
 
 
 def run_simulation():
