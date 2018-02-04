@@ -40,24 +40,22 @@ printf "Read Length: "$READ_LENGTH"\n\n" >> $SIMULATION_LOG_FILE
 # creating and copying files
 printf "Copying temporary files for normal reads ..\n" >> $SIMULATION_LOG_FILE
 cp /ref/$REFERENCE /ref/$OUTPUT_PREFIX/normal
+cp /ref/$TARGET /ref/$OUTPUT_PREFIX/normal
 printf "Copying temporary files for tumor reads ..\n\n" >> $SIMULATION_LOG_FILE
 for i in `seq 1 $SUBCLONES`
 do
     cp /ref/$REFERENCE /ref/$OUTPUT_PREFIX/tumor/subclone_$i
+    cp /ref/$TARGET /ref/$OUTPUT_PREFIX/tumor/subclone_$i
 done
 
 # generate normal reads
-NORMAL_REFERENCE=/ref/$OUTPUT_PREFIX/normal/$REFERENCE
-NORMAL_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/normal/normal
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
-
-printf "Generating probe sequences ..\n\n" >> $SIMULATION_LOG_FILE
-cd /easyscnvsim_lib/Wessim/
-python Prep_Probe2Fa.py lib/S0293689_Probes.txt
-printf "Running BLAT search to create a match list ..\n\n" >> $SIMULATION_LOG_FILE
-/easyscnvsim_lib/pblat/pblat $NORMAL_REFERENCE lib/S0293689_Probes.txt.fa -threads=2 normal_matches.psl
 printf "Generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
-python Wessim2.py -R $NORMAL_REFERENCE -P lib/S0293689_Probes.txt.fa -B normal_matches.psl -n $NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $NORMAL_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
+cd /easyscnvsim_lib/Wessim/
+NORMAL_REFERENCE=/ref/$OUTPUT_PREFIX/normal/$REFERENCE
+NORMAL_TARGET=/ref/$OUTPUT_PREFIX/normal/$TARGET
+NORMAL_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/normal/normal
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+python Wessim1.py -R $NORMAL_REFERENCE -B $NORMAL_TARGET -n $NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $NORMAL_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 
 # clean temporary files
@@ -71,7 +69,6 @@ cd /ref/$OUTPUT_PREFIX/normal
 cat *.fastq > normal_all_reads.fastq
 rm normal_1.fastq
 rm normal_2.fastq
-
 
 # simulate tumor genome
 for i in `seq 1 $SUBCLONES`
@@ -146,46 +143,35 @@ rm $REFERENCE
 
 # generate tumor reads
 # allele 1
-
+printf "Generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 cd /easyscnvsim_lib/Wessim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1.fa
+TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele1
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
-
-printf "Running BLAT search to create a match list for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-/easyscnvsim_lib/pblat/pblat $TUMOR_REFERENCE lib/S0293689_Probes.txt.fa -threads=2 allele1_matches.psl
-printf "Generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-python Wessim2.py -R $TUMOR_REFERENCE -P lib/S0293689_Probes.txt.fa -B allele1_matches.psl -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
-
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 # allele 2
 cd /easyscnvsim_lib/Wessim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
+TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
-
-printf "Running BLAT search to create a match list for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-/easyscnvsim_lib/pblat/pblat $TUMOR_REFERENCE lib/S0293689_Probes.txt.fa -threads=2 allele2_matches.psl
-printf "Generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-python Wessim2.py -R $TUMOR_REFERENCE -P lib/S0293689_Probes.txt.fa -B allele2_matches.psl -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
+MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-
 # allele 3
 if (( $PLOIDY == 3)); then
 cd /easyscnvsim_lib/Wessim/
     TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_3.fa
+    TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
     TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele3
     TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
     TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v5_p.gzip
-
-    printf "Running BLAT search to create a match list for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-    /easyscnvsim_lib/pblat/pblat $TUMOR_REFERENCE lib/S0293689_Probes.txt.fa -threads=2 allele3_matches.psl
-    printf "Generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-    python Wessim2.py -R $TUMOR_REFERENCE -P lib/S0293689_Probes.txt.fa -B allele3_matches.psl -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
+    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
+    python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
     printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 fi
 
