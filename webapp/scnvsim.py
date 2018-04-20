@@ -6,7 +6,7 @@ import json
 
 
 def _log(message):
-    print("VarSimLab 0.0.2: " + str(message))
+    print("VarSimLab 1.0: " + str(message))
 
 
 def check_reference_ready():
@@ -26,15 +26,20 @@ def check_reference_ready():
     with open(manifest_file, 'r') as manifest:
         data = json.load(manifest)
         reference_fasta = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["reference"])
+        target_file = os.path.join(settings.DEFAULT_REFERENCE_PATH, data["targets"])
 
     if not os.path.isfile(reference_fasta):
         _log("genome reference file (.fasta | .fa) cannot be found in the reference folder; simulation will NOT work!")
         return
 
+    if not os.path.isfile(target_file):
+        _log("targets file (.bed) cannot be found in the reference folder; simulation will NOT work!")
+        return
+
     _log("found all required simulation files in place; simulation is READY!")
 
     settings.REFERENCE_READY = True
-    settings.INPUT_FILES = {"reference": data['reference'], "targets": 'dummy'}
+    settings.INPUT_FILES = {"reference": data['reference'], "targets": data['targets']}
 
 
 def run_simulation():
@@ -65,7 +70,7 @@ def run_simulation():
     web_message += 'You can close this window, and the simulation will still be working. \
     Follow up with the progress in the simulation progress file<br><br>'
     web_message += "You can also <a href='/'>go back</a> and run another simulation concurrently \
-     by changing the <i>Output Prefix</i> parameter and hit run again ..<br>"
+     by chancing the <i>Output Prefix</i> parameter and hit run again ..<br>"
     web_message += "WARNING: This simulation eats up large memory space. \
     Don't run multiple simulations unless you have enough RAM. You are advised to try only one simulation and \
      see how it goes first"

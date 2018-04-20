@@ -12,6 +12,12 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y build-essential python-pip wget bedtools
 RUN apt-get install -y zlib1g-dev libcurl4-openssl-dev python-dev libxml2-dev libxslt-dev
+RUN apt-get install -y libz-dev libbz2-dev liblzma-dev
+RUN wget https://github.com/samtools/htslib/releases/download/1.8/htslib-1.8.tar.bz2 -O htslib.tar.bz2 && \
+    tar -xjvf htslib.tar.bz2 && \
+    cd htslib-1.8 && \
+    make && \
+    make install
 RUN pip install pysam && \
     pip install numpy
 
