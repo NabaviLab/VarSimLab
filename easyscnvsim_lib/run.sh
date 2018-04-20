@@ -66,9 +66,9 @@ rm *.fa.fai
 
 # concatenate all reads
 cd /ref/$OUTPUT_PREFIX/normal
-cat *.fastq > normal_all_reads.fastq
-rm normal_1.fastq
-rm normal_2.fastq
+# cat *.fastq > normal_all_reads.fastq
+# rm normal_1.fastq
+# rm normal_2.fastq
 
 # simulate tumor genome
 for i in `seq 1 $SUBCLONES`
@@ -185,8 +185,8 @@ done
 
 # concatenate all subclones reads
 cd /ref/$OUTPUT_PREFIX/tumor/
-cat */*.fastq > tumor_all_subclones_reads.fastq
-rm */*.fastq
+# cat */*.fastq > tumor_all_subclones_reads.fastq
+# rm */*.fastq
 
 # at the end of the simulation, rename the log file
 printf "SIMULATION IS COMPLETE. CHECK THE FOLDERS FOR READS!" >> $SIMULATION_LOG_FILE
