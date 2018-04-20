@@ -55,7 +55,7 @@ NORMAL_REFERENCE=/ref/$OUTPUT_PREFIX/normal/$REFERENCE
 NORMAL_TARGET=/ref/$OUTPUT_PREFIX/normal/$TARGET
 NORMAL_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/normal/normal
 MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
-python Wessim1.py -R $NORMAL_REFERENCE -B $NORMAL_TARGET -n $NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $NORMAL_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
+python Wessim1.py -R $NORMAL_REFERENCE -B $NORMAL_TARGET -n 10000 -l $READ_LENGTH -M $MODEL_FILE -o $NORMAL_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 
 # clean temporary files
