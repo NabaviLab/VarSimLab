@@ -7,9 +7,9 @@ OUTPUT_PREFIX=$3
 SNP_RATE=$4
 INDEL_RATE=$5
 TRANSITION_TRANSVERSION_RATIO=$6
-CNV_RATE=$7
-CNV_MIN_SIZE=$8
-CNV_MAX_SIZE=$9
+CNV_RATE=0
+CNV_MIN_SIZE=0
+CNV_MAX_SIZE=0
 NUMBER_OF_READS="${10}"
 READ_LENGTH="${11}"
 PLOIDY="${12}"
@@ -64,12 +64,6 @@ rm *.bed*
 rm *.fa
 rm *.fa.fai
 
-# concatenate all reads
-cd /ref/$OUTPUT_PREFIX/normal
-#cat *.fastq > normal_all_reads.fastq
-#rm normal_1.fastq
-#rm normal_2.fastq
-
 # simulate tumor genome
 for i in `seq 1 $SUBCLONES`
 do
@@ -100,9 +94,11 @@ if (( $PLOIDY == 3)); then
         fi
         if [[ $entry == *"CNV"* ]] && [[ $entry == *"stdresults"* ]]; then
             mv $entry 'CNV_stdresults_2.txt'
+            rm CNV_stdresults_2.txt
         fi
         if [[ $entry == *"CNV"* ]] && [[ $entry != *"stdresults"* ]]; then
             mv $entry 'CNV_restuls_2.txt'
+            rm CNV_restuls_2.txt
         fi
     done
     printf "Measuring ploidy level .. Still simulating tumor variations in subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
@@ -131,62 +127,36 @@ do
     fi
     if [[ $entry == *"CNV"* ]] && [[ $entry == *"stdresults"* ]] && [[ $entry != *"_2.txt" ]]; then
         mv $entry 'CNV_stdresults.txt'
+        rm CNV_stdresults.txt
     fi
     if [[ $entry == *"CNV"* ]] && [[ $entry != *"stdresults"* ]] && [[ $entry != *"_2.txt" ]]; then
         mv $entry 'CNV_restuls.txt'
+        rm CNV_restuls.txt
     fi
 done
 
+done
 printf "Wait! Wait! Simulating the variations in subclone $i is complete. But it's still generating reads ..\n\n" >> $SIMULATION_LOG_FILE
 printf "Cleaning temporary files ..\n\n" >> $SIMULATION_LOG_FILE
 rm $REFERENCE
 
 # generate tumor reads
-# allele 1
-printf "Generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-cd /easyscnvsim_lib/Wessim/
+cd /easyscnvsim_lib/CNVSim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1.fa
 TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
-TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele1
+TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
-python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
-# allele 2
-cd /easyscnvsim_lib/Wessim/
-TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
-TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
-TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2
-TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
-TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
-python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
-printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-# allele 3
-if (( $PLOIDY == 3)); then
-cd /easyscnvsim_lib/Wessim/
-    TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_3.fa
-    TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
-    TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele3
-    TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
-    TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
-    python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
-    printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-fi
+python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
 
-# clean temporary files
-cd /ref/$OUTPUT_PREFIX/tumor/subclone_$i
-rm *.bed*
-rm *.fa
-rm *.fa.fai
-
-done
-
-# concatenate all subclones reads
-cd /ref/$OUTPUT_PREFIX/tumor/
-# cat */*.fastq > tumor_all_subclones_reads.fastq
-# rm */*.fastq
+cd $TUMOR_OUTPUT_PREFIX
+rm control_1.fastq
+rm control_2.fastq
+rm allele_1.fa
+rm allele_2.fa
+rm *targets.bed
+mv cnv_1.fastq tumor_1.fastq
+mv cnv_2.fastq tumor_2.fastq
 
 # at the end of the simulation, rename the log file
 printf "SIMULATION IS COMPLETE. CHECK THE FOLDERS FOR READS!" >> $SIMULATION_LOG_FILE
