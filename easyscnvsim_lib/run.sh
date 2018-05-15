@@ -70,39 +70,6 @@ do
 printf "Simulating tumor variations in subclone $i ..\n" >> $SIMULATION_LOG_FILE
 printf "This step takes some time. Be patient and don't terminate the Docker container :)\n\n" >> $SIMULATION_LOG_FILE 2>&1
 cd /ref/$OUTPUT_PREFIX/tumor/subclone_$i
-if (( $PLOIDY == 3)); then
-    /easyscnvsim_lib/SInC/SInC_simulate -S $SNP_RATE -I $INDEL_RATE -p $CNV_RATE -l $CNV_MIN_SIZE -u $CNV_MAX_SIZE -t $TRANSITION_TRANSVERSION_RATIO $REFERENCE >> $SIMULATION_LOG_FILE
-    for entry in /ref/$OUTPUT_PREFIX/tumor/subclone_$i/*
-    do
-        if [[ $entry == *"allele_1"* ]]; then
-            mv $entry 'allele_3.fa'
-        fi
-        if [[ $entry == *"allele_2"* ]]; then
-            rm $entry
-        fi
-        if [[ $entry == *"SNPs"* ]] && [[ $entry == *"_1.txt" ]]; then
-            mv $entry 'SNPs_3.txt'
-        fi
-        if [[ $entry == *"SNPs"* ]] && [[ $entry == *"_2.txt" ]]; then
-            rm $entry
-        fi
-        if [[ $entry == *"INDELs"* ]] && [[ $entry == *"_1.txt" ]]; then
-            mv $entry 'INDELs_3.txt'
-        fi
-        if [[ $entry == *"INDELs"* ]] && [[ $entry == *"_2.txt" ]]; then
-            rm $entry
-        fi
-        if [[ $entry == *"CNV"* ]] && [[ $entry == *"stdresults"* ]]; then
-            mv $entry 'CNV_stdresults_2.txt'
-            rm CNV_stdresults_2.txt
-        fi
-        if [[ $entry == *"CNV"* ]] && [[ $entry != *"stdresults"* ]]; then
-            mv $entry 'CNV_restuls_2.txt'
-            rm CNV_restuls_2.txt
-        fi
-    done
-    printf "Measuring ploidy level .. Still simulating tumor variations in subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
-fi
 
 /easyscnvsim_lib/SInC/SInC_simulate -S $SNP_RATE -I $INDEL_RATE -p $CNV_RATE -l $CNV_MIN_SIZE -u $CNV_MAX_SIZE -t $TRANSITION_TRANSVERSION_RATIO $REFERENCE >> $SIMULATION_LOG_FILE
 for entry in /ref/$OUTPUT_PREFIX/tumor/subclone_$i/*
@@ -144,19 +111,29 @@ rm $REFERENCE
 cd /easyscnvsim_lib/CNVSim/
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1.fa
 TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
-TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/
+TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1_
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
 python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
 
-cd $TUMOR_OUTPUT_PREFIX
+TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
+TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
+TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2_
+TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
+TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
+python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
+
+
+cd /ref/$OUTPUT_PREFIX/tumor/subclone_$i/
 rm control_1.fastq
 rm control_2.fastq
 rm allele_1.fa
 rm allele_2.fa
 rm *targets.bed
-mv cnv_1.fastq tumor_1.fastq
-mv cnv_2.fastq tumor_2.fastq
+mv allele_1_cnv_1.fastq allele_1_tumor_1.fastq
+mv allele_1_cnv_2.fastq allele_1_tumor_2.fastq
+mv allele_2_cnv_1.fastq allele_2_tumor_1.fastq
+mv allele_2_cnv_2.fastq allele_2_tumor_2.fastq
 
 # at the end of the simulation, rename the log file
 printf "SIMULATION IS COMPLETE. CHECK THE FOLDERS FOR READS!" >> $SIMULATION_LOG_FILE
