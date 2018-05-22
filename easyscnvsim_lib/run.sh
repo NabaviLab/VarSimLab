@@ -7,9 +7,9 @@ OUTPUT_PREFIX=$3
 SNP_RATE=$4
 INDEL_RATE=$5
 TRANSITION_TRANSVERSION_RATIO=$6
-CNV_RATE=0
-CNV_MIN_SIZE=0
-CNV_MAX_SIZE=0
+CNV_RATE=$7
+CNV_MIN_SIZE=$8
+CNV_MAX_SIZE=$9
 NUMBER_OF_READS="${10}"
 READ_LENGTH="${11}"
 PLOIDY="${12}"
@@ -71,7 +71,7 @@ printf "Simulating tumor variations in subclone $i ..\n" >> $SIMULATION_LOG_FILE
 printf "This step takes some time. Be patient and don't terminate the Docker container :)\n\n" >> $SIMULATION_LOG_FILE 2>&1
 cd /ref/$OUTPUT_PREFIX/tumor/subclone_$i
 
-/easyscnvsim_lib/SInC/SInC_simulate -S $SNP_RATE -I $INDEL_RATE -p $CNV_RATE -l $CNV_MIN_SIZE -u $CNV_MAX_SIZE -t $TRANSITION_TRANSVERSION_RATIO $REFERENCE >> $SIMULATION_LOG_FILE
+/easyscnvsim_lib/SInC/SInC_simulate -S $SNP_RATE -I $INDEL_RATE -p 0 -l 0 -u 0 -t $TRANSITION_TRANSVERSION_RATIO $REFERENCE >> $SIMULATION_LOG_FILE
 for entry in /ref/$OUTPUT_PREFIX/tumor/subclone_$i/*
 do
     if [[ $entry == *"allele_1"* ]]; then
@@ -114,15 +114,14 @@ TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_1_
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
+python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS -g $CNV_RATE -r_min $CNV_MIN_SIZE -r_max $CNV_MAX_SIZE exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
 
 TUMOR_REFERENCE=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
 TUMOR_TARGET=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/$TARGET
 TUMOR_OUTPUT_PREFIX=/ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2_
 TUMOR_NUMBER_OF_READS=$(($NUMBER_OF_READS / $PLOIDY ))
 TUMOR_NUMBER_OF_READS=$(($TUMOR_NUMBER_OF_READS / $SUBCLONES))
-python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
-
+python cnv-sim.py -o $TUMOR_OUTPUT_PREFIX -n $NUMBER_OF_READS -g $CNV_RATE -r_min $CNV_MIN_SIZE -r_max $CNV_MAX_SIZE exome $TUMOR_REFERENCE $TUMOR_TARGET >> $SIMULATION_LOG_FILE 2>&1
 
 cd /ref/$OUTPUT_PREFIX/tumor/subclone_$i/
 rm control_1.fastq

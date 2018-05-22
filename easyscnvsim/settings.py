@@ -126,10 +126,10 @@ DEFAULT_REFERENCE_PATH = '/ref/'
 REFERENCE_READY = False
 
 INPUT_FILES = {}
-SIMULATION_PARAMETERS = {'snp-rate': '0.002', \
-                         'indel-rate': '0.0001', \
+SIMULATION_PARAMETERS = {'snp-rate': '0.02', \
+                         'indel-rate': '0.001', \
                          'transition-transversion-ratio': '2', \
-                         'cnv-rate': '2', \
+                         'cnv-rate': '20', \
                          'cnv-min-size': '1000', \
                          'cnv-max-size': '150000', \
                          'output-prefix': 'my_sim', \
