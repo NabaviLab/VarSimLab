@@ -38,7 +38,9 @@ error_gen.add_argument("-cnv_min_size", help="minimum size of CNVs", default=100
 error_gen.add_argument("-cnv_max_size", help="CNV_max_size", default=40000, type=int) 
 error_gen.add_argument("-snp", help="percent of total input to be turned into SNPs. Values from 0 to 100. A value of 5 indicates 5 percent of genome should be turned into SNPs", type=float, default=.002)
 error_gen.add_argument("-indel", help="percent of total input to be included in INDELS. values from 0 to 100, a value of 1 indicates 1 percent of the genome should be included in indels",default=.001, type=float)
- 
+error_gen.add_argument("-ploidy", help="tumor ploidy. default diploid", type=int, choices=[1,2,3])
+error_gen.add_argument("-subclones", help="generate multiple tumor subclones, to simulate tumor heterogeneity", type=int, default=1)
+
 args=parser.parse_args()
 
 assert args.snp>=0 and args.snp<=100, "SNP rate should be between 0 and 100 percent"
@@ -82,6 +84,7 @@ def genome_to_exome(genome):
    start=int(line[1])
    end=int(line[2])
    exon_ranges.append((start,end))
+ exon_ranges.sort(key=lambda x: x[0])
  #list of (start,end) tuples, sorted by start position
  for start,end in exon_ranges:
   offsets.append(start) 
@@ -175,7 +178,9 @@ def call_varsimlab(genome_file, bed_file):
  exome_file=open("exome_with_linebreaks.fa", "w") 
  exome_file.write(exome_with_linebreaks)
 #exome with linebreaks used by run.sh  
- os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {}".format(args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l))
+ os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
+
+
 
 if __name__=="__main__" and not args.use_genome:
 #if we are doing exome sequencing
@@ -185,22 +190,25 @@ if __name__=="__main__" and not args.use_genome:
  exomedict=genome_to_exome(genome)
  b=exome_chunk_index(exomedict) 
  call_varsimlab(args.genome, args.bed)
- filelist=glob.glob("{}/tumor/subclone_1/*.txt".format(args.filename))
- for file in filelist:
-  if not "stdresults" in file: 
-   correct_error_file_faster(1, file, b)
-  else:
-   correct_error_file_faster(2, file, b)
-   correct_error_file_faster(2, file+"corrected", b)
-#   correct the start and end of the CNVS in stdresults file
- os.system("rm {}/tumor/subclone_1/*.txt".format(args.filename)) 
- os.system("rm {}/tumor/subclone_1/CNV_stdresults.txtcorrected".format(args.filename))
- os.system("mv {}/tumor/subclone_1/*correctedcorrected {}/tumor/subclone_1/CNV_stdresultscorrected".format(args.filename, args.filename))
- #clean up
- filelist=glob.glob("{}/tumor/subclone_1/*".format(args.filename))
- for file in filelist:
-  add_header(file)
+ for subclone in range(1, (args.subclones+1)):
+  filelist=glob.glob("{}/tumor/subclone_{}/*.txt".format(args.filename, subclone))
+  for file in filelist:
+   if not "stdresults" in file: 
+    correct_error_file_faster(1, file, b)
+   else:
+    correct_error_file_faster(2, file, b)
+    correct_error_file_faster(2, file+"corrected", b)
+ #   correct the start and end of the CNVS in stdresults file
+  os.system("rm {}/tumor/subclone_{}/*.txt".format(args.filename, subclone)) 
+  os.system("rm {}/tumor/subclone_{}/CNV_stdresults.txtcorrected".format(args.filename, subclone))
+  os.system("mv {}/tumor/subclone_{}/CNV_stdresults.txtcorrectedcorrected {}/tumor/subclone_{}/CNV_stdresultscorrected".format(args.filename, subclone, args.filename, subclone))
+  if args.ploidy==3: 
+   os.system("mv {}/tumor/subclone_{}/*.txtcorrectedcorrected {}/tumor/subclone_{}/CNV_stdresults_2corrected".format(args.filename, subclone, args.filename, subclone))
+  #clean up
+  filelist=glob.glob("{}/tumor/subclone_{}/*".format(args.filename, subclone))
+  for file in filelist:
+   add_header(file)
 
 elif __name__=="__main__": 
- os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {}".format(args.filename, args.genome, args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l))
+ os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, args.genome, args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
  #if we're just doing genome sequencing we can simply call run.sh. We don't need to do any error file correcting, or subsequencing. 
