@@ -3,7 +3,7 @@ Need Help?
 
 Help us improve the current version of VarSimLab by:
 
-- Reporting bus
+- Reporting bugs
 - Suggesting improvements
 - Contributing to the project
 

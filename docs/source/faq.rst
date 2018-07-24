@@ -1,28 +1,20 @@
 FAQs
 ----
 
-1. What is Docker?
+1. What is VarSimLab necessary?
 ^^^^^^^^^^^^^^^^^^
-Docker is the world's leading software containerization platform. Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.
+There are a variety of tools available for variant simulation, and short read simulation. However, generating benchmark ready simulated datasets remains an arduous process, requiring the use of multiple tools in conjuction. This is especially true for exome seqnuencing. The typical workflow for generating whole exome simulated data is approximately as follows: 
+1) Exonic sequences have to be combined to use as input to an error simulator.
+2)  The resulting error containing exome can then be used as input to a short read simulator 
+3) the read simulator output is aligned back to the genome. 
+4) The error simulator’s variant positions file is corrected to be relative to the genome, rather than relative to the exome.
 
-read more on Docker website: http://www.docker.com
+Only then can the simulated data be used for benchmarking. The above pipeline, which requires at minimum 3 seperate tools, can be reduced into a single command with VarSimLab
 
-2. How is Docker different from a Virtual Machine (VM)?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The below image summarizes how Docker is different from virtual machines from a technical point of view. Docker is very lightweight compared to a virtual machine, which makes it the ideal solution for wrapping software dependencies in a standard unit that runs on any machine where Docker engine is installed. Containers running on a single machine share the same operating system kernel; they start instantly and use less RAM. Images are constructed from layered filesystems and share common files, making disk usage and image downloads much more efficient.
+.. code-block:: python
+   python3 output_directory input_fasta.fa exons.bed -bam  
 
-.. image:: /images/figure-1.png
-
-
-3. Do I need to learn a new platform to run the simulator?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**NO**. VarSimLab has a web interface that does the dirty work for you. The pipeline is fully automated from A to Z.
-
-4. Do I need to be a Docker expert to use VarSimLab?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**NO**. You run only one command to get the application running. If you are using one of our hosted reference genomes at http://nabavilab.uconn.edu/datasets/varsimlab , you will just need to execute the file `./run.sh` and go to your web browser to initiate simulaitons.
-
-5. My simulation is too slow. What should I do?
+22 My simulation is too slow. What should I do?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There may be several legitimate reasons for that:
 

@@ -1,15 +1,13 @@
 VarSimLab Documentation
 ========================
 
-VarSimLab is a Docker-based package that is designed to study genomic variations in a given genome.
-As of the current version (**nabavilab/varsimlab:0.2**), the simulator generates artificial short reads,
-which harbor structural and copy number variations.
-In addition, it simulates tumor heterozygosity (Ploidy and Subclones).
+Advances in next generation sequencing have led to the creation of many tools for detecting variations in tumor sequences. To evaluate the performance of these tools, researchers need articifial tumor sequences with known variant positions. Currently, generating such simulated datasets is possible, it requires significant labor and technical know-how. The benchmarking process is especially difficult for tools that call variants from tumor whole exome sequences, an increasingly popular technique for tumor characterization
 
-With a web-based interface running locally, it not only provides a convenient way of using the package,
-but also runs efficiently generating data where it will be finally analyzed.
+VarSimLab is a tool designed to dramatically simplify varaint-caller benchmarking.  
+As of the current version (**nabavilab/varsimlab:0.2**), the simulator generates realistic artificial short reads, which harbor structural and copy number variations. VarSimLab can also simulates tumor heterozygosity (Ploidy and Subclones), and can generate whole genome, or whole exome datasets.
 
-The next version of VarSimLab will ship with a visualization module to induce a better understanding of the generated data.
+The output of VarSimLab is a directory containing tumor and normal reads, a log file containing simulation information, and benchmarking files, with the locations and positions of all variants generated in the run.  
+The output of VarSimLab ideal for benchmarking variant calling software, and showed high variant rediscovery rates for SNPs INDELS and CNVs when tested using VarScan variant calling software. 
 
 .. toctree::
    :maxdepth: 3

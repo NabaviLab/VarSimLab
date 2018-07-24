@@ -1,20 +1,7 @@
 Simulator User Guide
 --------------------
 
-.. note:: If you are familiar with Docker, you can skip reading this section and find the package on Docker Hub under **nabavilab/varsimlab**.
-
-
-1. Installing Docker
-^^^^^^^^^^^^^^^^^^^^^
-Docker is supported on Linux, Mac and Windows amongst other operating systems too. So, you are guaranteed to get the tool running without worrying about installing other dependencies.
-
-To install Docker:
-
-- **Linux (ubuntu):** https://docs.docker.com/engine/installation/linux/ubuntu/ (check left-side menu for other distributions)
-- **Mac:** https://docs.docker.com/docker-for-mac/install/
-- **Windows:** https://docs.docker.com/docker-for-windows/install/
-
-2. Prepare The Reference Genome
+1. Prepare The Reference Genome
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There are two ways to easily run VarSimLab for a reference genome
 
@@ -25,61 +12,51 @@ To prepare a reference genome, follow these steps:
 
 1. Create a new folder to hold your files.
 2. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
-3. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables
-4. Create a text file and name it `manifest.json`. Put the following text after replacing the values of the keys with the name of the files you just copied. Save the file and close it.
-
-.. code-block:: json
-
-    {
-        "reference": "reference.fa",
-        "targets": "reference-targets.bed"
-    }
-
+3. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables. You can also see more information about preparing the bed file at our github repository https://github.com/NabaviLab/VarSimLab
 
 That's it! Your reference is ready to generate reads from.
 
 3. Running VarSimLab
 ^^^^^^^^^^^^^^^^^^^^
-**Navigate to the reference folder you created (or downloaded) above.**
+Here are the available arguments VarSimLab accepts at the command line
 
-If you download one of our prepared reference genomes, you can simply execute `run.sh` script. Once you see the below message, you can navigate to the web browser to http://localhost:8000
+required positional arguments:
+  filename              name of output file
+  genome                genome to be processessed
 
-.. note:: If you are using Docker for Windows, the command inside `run.sh` will not correctly mount your host directory to the container. You wil have to run the container manually as indicated below.
+VarSimLab also requires one of the following arguments:
+  -use_genome           generate tumor and normal for entire provided sequence.                         used for whole genome sequence simualtion
+  -bed BED              generate tumor and normal based on bed file containing
+                        exonic regions. used for whole exome sequence simulation
+
+read generation parameters:
+  arguments to adjust read generation
+
+  -c C                  read depth of coverage
+  -s                    use single end reads (default paired)
+  -l L                  read length. default 100 bp
+  -m M                  maximum distance for two bed ranges to be merged into
+                        one range. If zero, merges only those ranges that
+                        directly overlap with each other
+
+error parameters:
+  arguments to adjust tumor error generation
+
+  -cnv CNV              percent of total input to be incorporated into a CNV.
+                        Values from 0 to 100. 4 would signify 4 percent of
+                        input should be included in CNVs
+  -cnv_min_size CNV_MIN_SIZE
+                        minimum size of CNVs
+  -cnv_max_size CNV_MAX_SIZE
+                        CNV_max_size
+  -snp SNP              percent of total input to be turned into SNPs. Values
+                        from 0 to 100. A value of 5 indicates 5 percent of
+                        genome should be turned into SNPs
+  -indel INDEL          percent of total input to be included in INDELS.
+                        values from 0 to 100, a value of 1 indicates 1 percent
+                        of the genome should be included in indels
 
 
-.. note:: If you are using Docker for Windows, the reference folder should be downloaded to a directory where Docker has administrative access. In most cases, you should use the **C Drive**, not any other drive.
-
-.. image:: /images/docker-message.png
-
-If you have prepared the folder yourself, execute the following command in the terminal.
-
-.. code-block:: shell
-
-    docker run -v $(pwd):/ref -p 12345:8000 nabavilab/varsimlab
-
-    [For Windows] docker run -v /c/Users/hg19-chr1/chr1/:/ref -p 1537:8000 nabavilab/varsimlab
-
-.. note:: 12345 is an arbitrary port number. If the Docker container does not start because this port is unavailable, try other port numbers in the range [49152, 65535]
-
-The `-v` option mounts the current folder to the container, where the pipeline will check for the reference files. The `-p` mounts links port `8000` from the container to port `12345` on you local machine (you can choose other ports too). Now, naviate to the web browser to http://localhost:12345
-
-.. note:: Make sure you see the message that says: **found all required simulation files in place; simulation is READY**. If you see a different message, that means you are not running the container from the current directory that contains `manifest.json` and/or other files.
-
-When you navigate to the web browser, you should see the following message
-
-.. image:: /images/select-reference.png
-
-The package automatically detects the reference files and initiate the simulation engine for you.
-
-4. Select Simulation Parameters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-As the figure shows, all you need to do is to plug in your values for the different simulation parameters. You can leave the default values too.
-
-.. image:: /images/modify-parameters.png
-
-The `output_prefix` is where the reads will be generated. If you run multiple simulations, make sure to use different output prefixes for each run. Once you are ready, hit run.
-
-.. image:: /images/run-simulator.png
 
 5. Understanding Simulator Results
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
