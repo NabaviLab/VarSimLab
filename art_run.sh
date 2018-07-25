@@ -14,8 +14,7 @@ READ_LENGTH="${10}"
 PLOIDY="${11}"
 SEED=$RANDOM
 SUBCLONES="${12}"
-TUMOR_FOLD_COVERAGE="${13}"
-echo $TUMOR_FOLD_COVERAGE
+#TUMOR_FOLD_COVERAGE="${13}"
 SIMULATION_LOG_FILE=$ref/$OUTPUT_PREFIX/SIMULATION_IS_RUNNING.txt
 M="-m 200"
 if [[ "$SINGLE_OR_PAIRED" == "False" ]]; then
@@ -152,15 +151,12 @@ TUMOR_REFERENCE=$ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_2.fa
 TUMOR_OUTPUT_PREFIX=$ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2
 ./art_illumina -i $TUMOR_REFERENCE -rs $SEED $M -s 10 -l 100 -f $FOLD_COVERAGE $SINGLE_OR_PAIRED -o $TUMOR_OUTPUT_PREFIX >> $SIMULATION_LOG_FILE 2>&1
 
-#python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 # allele 3
 if (( $PLOIDY == 3)); then
     TUMOR_REFERENCE=$ref/$OUTPUT_PREFIX/tumor/subclone_$i/allele_3.fa
     TUMOR_OUTPUT_PREFIX=$ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele3
     ./art_illumina -i $TUMOR_REFERENCE -rs $SEED $M -s 10 -l 100 -f $FOLD_COVERAGE $SINGLE_OR_PAIRED -o $TUMOR_OUTPUT_PREFIX >> $SIMULATION_LOG_FILE 2>&1
-#    MODEL_FILE=/easyscnvsim_lib/Wessim/models/ill100v4_p.gzip
-#   python Wessim1.py -R $TUMOR_REFERENCE -B $TUMOR_TARGET -n $TUMOR_NUMBER_OF_READS -l $READ_LENGTH -M $MODEL_FILE -o $TUMOR_OUTPUT_PREFIX -t 2 -p >> $SIMULATION_LOG_FILE 2>&1
     printf "Finished generating reads for subclone $i ..\n\n" >> $SIMULATION_LOG_FILE
 fi
 
@@ -169,7 +165,6 @@ cd $ref/$OUTPUT_PREFIX/tumor/subclone_$i
 rm *.bed*
 rm *.fa
 rm *.fa.fai
-
 done
 
 # at the end of the simulation, rename the log file
