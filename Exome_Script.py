@@ -38,15 +38,22 @@ error_gen.add_argument("-cnv_min_size", help="minimum size of CNVs", default=100
 error_gen.add_argument("-cnv_max_size", help="CNV_max_size", default=40000, type=int) 
 error_gen.add_argument("-snp", help="percent of total input to be turned into SNPs. Values from 0 to 100. A value of 5 indicates 5 percent of genome should be turned into SNPs", type=float, default=.002)
 error_gen.add_argument("-indel", help="percent of total input to be included in INDELS. values from 0 to 100, a value of 1 indicates 1 percent of the genome should be included in indels",default=.001, type=float)
-error_gen.add_argument("-ploidy", help="tumor ploidy. default diploid", type=int, choices=[1,2,3])
+error_gen.add_argument("-ploidy", help="tumor ploidy. default diploid", type=int, default=2, choices=[1,2,3])
 error_gen.add_argument("-subclones", help="generate multiple tumor subclones, to simulate tumor heterogeneity", type=int, default=1)
 
 args=parser.parse_args()
+tumor_coverage=args.c/args.ploidy 
+print(tumor_coverage)
 
 assert args.snp>=0 and args.snp<=100, "SNP rate should be between 0 and 100 percent"
 assert args.cnv>=0 and args.cnv<=100, "CNV rate should be between 0 and 100 percent"
 assert args.indel>=0 and args.indel<=100, "INDEL rate should be between 0 and 100 percent"
 #ensure the user gives acceptable values for cnv, indel and snp rate. we could accomplish this with the choices arg in add_argument, but I think it makes the help page look ugly
+
+art_args=["./art_run.sh", args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones, tumor_coverage]
+art_args=list(map(str, art_args))
+#list of command line arguments used by art_run.sh.
+
 
 def prep_bed(): 
  '''take bed file, merge together ranges that overlap or are within 30 bp of eachother. This prevents the same region being included twice, and prevents INDELS being created between nearby ranges'''
@@ -178,8 +185,8 @@ def call_varsimlab(genome_file, bed_file):
  exome_file=open("exome_with_linebreaks.fa", "w") 
  exome_file.write(exome_with_linebreaks)
 #exome with linebreaks used by run.sh  
- os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
-
+# os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
+ subprocess.run(art_args)
 
 
 if __name__=="__main__" and not args.use_genome:
@@ -210,5 +217,6 @@ if __name__=="__main__" and not args.use_genome:
    add_header(file)
 
 elif __name__=="__main__": 
- os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, args.genome, args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
+ #os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, args.genome, args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
+ subprocess.run(art_args)
  #if we're just doing genome sequencing we can simply call run.sh. We don't need to do any error file correcting, or subsequencing. 
