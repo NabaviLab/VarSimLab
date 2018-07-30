@@ -16,7 +16,7 @@ To prepare a reference genome, follow these steps:
 
 That's it! Your reference is ready to generate reads from.
 
-3. Running VarSimLab
+2. Running VarSimLab
 ^^^^^^^^^^^^^^^^^^^^
 Here are the available arguments VarSimLab accepts at the command line
 
@@ -58,9 +58,13 @@ error parameters:
 
 
 
-5. Understanding Simulator Results
+3. Understanding Simulator Results
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There are two folders inside the `output_prefix` folder.
 
-- **Normal:** it will contain `.FASTQ` file for reads that represent the control (or normal) sample.
-- **Tumor:** it will contain `.FASTQ` file for reads that represent the tumor sample. In addition, it will contain the benchmark data that tells you where SNPs, Indels and CNVs for each allele in each subclone generated.
+- **Normal:** it will contain `.FASTQ` file for reads that represent the control (or normal) sample. There will be two `.FASTQ` files if paired end reads were generated, and one if single end reads were generated.
+- **Tumor:** it will contain `.FASTQ` file for reads that represent the tumor sample. There will be two `.FASTQ` files per allele for paired end sequencing, or one per allele for unpaired. In addition, it will contain the benchmark data that tells you where SNPs, Indels and CNVs for each allele in each subclone generated. 
+
+3. Understanding Benchmarking files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If a bed file was supplied, two sets of positions are calculated, one relative to the genome, the other relative to the exome. The genome position is likely to be much greater than the exome position, since the exome is much smaller than the genome, and exons are usually surrounded by large noncoding stretches. 

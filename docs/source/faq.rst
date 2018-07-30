@@ -13,11 +13,11 @@ Only then can the simulated data be used for benchmarking. The above pipeline, w
 
 .. code-block:: python
    python3 output_directory input_fasta.fa exons.bed -bam  
-
-22 My simulation is too slow. What should I do?
+2 I want to perform exonic sequencing of a human sequence. How should I generate the bed file of exonic positions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-There may be several legitimate reasons for that:
-
+Fortunately `USCS tablebrowser  <https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=684589671_VNv2vSQOiC5FAMfrRqImSTiU0ab1>`_ makes this easy. See the docs here for a walkthrough
+`here https://github.com/NabaviLab/VarSimLab <https://github.com/NabaviLab/VarSimLab>`_
+3 My simulation is too slow. What should I do?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - **The size of the genome is big:** For example, using the whole human genome (~3GB) takes time for processing variations and generating reads for that size of a file. Just give the simulator its time to go through all the pipeline steps. We recommend to use one chromosome at a time when you need to simulate the variations in large genomes.
 
-- **Using Mac or Windows?** Make sure to properly increase the amount of memory and CPU available to Docker daemon. By default, when installing Docker on Windows or Mac, it is configured to have a limit of 2GB of RAM and 2 CPU cores to use across all running containers. Use the instructions here: https://docs.docker.com/docker-for-mac/#advanced for Mac and https://docs.docker.com/docker-for-windows/#advanced for Windows.
