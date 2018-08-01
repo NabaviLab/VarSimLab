@@ -13,11 +13,17 @@ Only then can the simulated data be used for benchmarking. The above pipeline, w
 
 .. code-block:: python
    python3 output_directory input_fasta.fa exons.bed -bam  
+
 2 I want to perform exonic sequencing of a human sequence. How should I generate the bed file of exonic positions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Fortunately `USCS tablebrowser  <https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=684589671_VNv2vSQOiC5FAMfrRqImSTiU0ab1>`_ makes this easy. See the docs here for a walkthrough
 `here https://github.com/NabaviLab/VarSimLab <https://github.com/NabaviLab/VarSimLab>`_
-3 My simulation is too slow. What should I do?
+
+3 How can I simulate the exome of multiple chromosomes. 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- **The size of the genome is big:** For example, using the whole human genome (~3GB) takes time for processing variations and generating reads for that size of a file. Just give the simulator its time to go through all the pipeline steps. We recommend to use one chromosome at a time when you need to simulate the variations in large genomes.
+As of the current release, unfortunately, exome simulation must be run one chromosome at a time, with one bed file per chromosome. Whole genome sequencing can accommodate multiple chromosomes
+
+4 I have a question not covered here, or I've found a bug
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+please email us at thomas.davis@uconn.edu or abdelrahman.hosny@ieee.org
 
