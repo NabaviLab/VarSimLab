@@ -46,17 +46,17 @@ read generation parameters:
 error parameters:
   arguments to adjust tumor error generation
 
-  -cnv CNV              percent of total input to be incorporated into a CNV.
+  -cnv                  percent of total input to be incorporated into a CNV.
                         Values from 0 to 100. 4 would signify 4 percent of
                         input should be included in CNVs
-  -cnv_min_size CNV_MIN_SIZE
+  -cnv_min_size
                         minimum size of CNVs
-  -cnv_max_size CNV_MAX_SIZE
+  -cnv_max_size
                         CNV_max_size
-  -snp SNP              percent of total input to be turned into SNPs. Values
+  -snp                  percent of total input to be turned into SNPs. Values
                         from 0 to 100. A value of 5 indicates 5 percent of
                         genome should be turned into SNPs
-  -indel INDEL          percent of total input to be included in INDELS.
+  -indel                percent of total input to be included in INDELS.
                         values from 0 to 100, a value of 1 indicates 1 percent
                         of the genome should be included in indels
 

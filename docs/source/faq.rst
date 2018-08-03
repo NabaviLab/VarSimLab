@@ -17,7 +17,7 @@ Only then can the simulated data be used for benchmarking. The above pipeline, w
 2 I want to perform exonic sequencing of a human sequence. How should I generate the bed file of exonic positions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Fortunately `USCS tablebrowser  <https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=684589671_VNv2vSQOiC5FAMfrRqImSTiU0ab1>`_ makes this easy. See the docs here for a walkthrough
-`here https://github.com/NabaviLab/VarSimLab <https://github.com/NabaviLab/VarSimLab>`_
+`here <https://github.com/NabaviLab/VarSimLab>`_
 
 3 How can I simulate the exome of multiple chromosomes. 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
