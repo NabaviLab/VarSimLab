@@ -1,6 +1,6 @@
 Simulator User Guide
 --------------------
-2. Installing VarSimLab
+1. Installing VarSimLab
 ^^^^^^^^^^^^^^^^^^^^^^^
 #TODO 
 
@@ -22,12 +22,13 @@ That's it! Your reference is ready to generate reads from.
 3. Running VarSimLab
 ^^^^^^^^^^^^^^^^^^^^
 Here are the available arguments VarSimLab accepts at the command line
+  required positional arguments
 
-required positional arguments:
   filename              name of output file
   genome                genome to be processessed
 
 VarSimLab also requires one of the following arguments:
+
   -use_genome           generate tumor and normal for entire provided sequence.                         used for whole genome sequence simualtion
   -bed BED              generate tumor and normal based on bed file containing
                         exonic regions. used for whole exome sequence simulation
