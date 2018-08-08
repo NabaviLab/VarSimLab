@@ -4,17 +4,18 @@ Simulator User Guide
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Varsimlab can be called from the command line using any python 3 version
 
+**installing ART**
 Varsimlab uses art_illumina to generate short reads with realistic sequencing errors. The documentation is available `Here <https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm>`_
-
-To install ART 
 
 .. code-block:: bash
  curl -O https://www.niehs.nih.gov/research/resources/assets/docs/artbinmountrainier2016.06.05linux64.tgz
  tar -xvzf artbinmountrainier2016.06.05linux64.tgz
 
+**installing SINC**
 VarSimLab uses SInC simulator to generate biologically realistic tumor genomic variations. The source files and instructions on compiling are available `Here <https://sourceforge.net/projects/sincsimulator/files/?source=navbar>`_
 
-Lastly if you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
+**installing Bedtools**
+If you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
 
 To install bedtools 
 
@@ -23,7 +24,6 @@ To install bedtools
  tar -zxvf bedtools-2.25.0.tar.gz
  cd bedtools2
  make
-```
 
 
 2. Prepare The Reference Genome

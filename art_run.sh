@@ -15,6 +15,7 @@ PLOIDY="${11}"
 SEED=$RANDOM
 SUBCLONES="${12}"
 #TUMOR_FOLD_COVERAGE="${13}"
+sam=TRUE
 SIMULATION_LOG_FILE=$ref/$OUTPUT_PREFIX/SIMULATION_IS_RUNNING.txt
 M="-m 200"
 if [[ "$SINGLE_OR_PAIRED" == "False" ]]; then
@@ -64,6 +65,9 @@ NORMAL_OUTPUT_PREFIX=$ref/$OUTPUT_PREFIX/normal/normal
 printf "Finished generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 # clean temporary files
 cd $ref/$OUTPUT_PREFIX/normal
+if [[ $sam == TRUE ]]; then
+ echo TEST
+ fi 
 #rm *.fa
 #rm *.fa.fai
 
