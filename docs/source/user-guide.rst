@@ -25,7 +25,6 @@ To install bedtools
  cd bedtools2
  make
 
-
 2. Prepare The Reference Genome
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There are two ways to easily run VarSimLab for a reference genome
