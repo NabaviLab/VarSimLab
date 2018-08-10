@@ -28,6 +28,7 @@ read_gen=parser.add_argument_group("read generation parameters", "arguments to a
 read_gen.add_argument("-c", help="read depth of coverage", default=25, type=float)
 read_gen.add_argument("-s", help="use single end reads (default paired)", action="store_true", default=False) 
 read_gen.add_argument("-l", help="read length. default 100 bp", type=int, default=100)
+read_gen.add_argument("-sam", help="align reads to reference genome", action="store_true", default=False)
 read_gen.add_argument("-m", help="maximum distance for two bed ranges to be merged into one range. If zero, merges only those ranges that directly overlap with each other", type=int, default=30)
 
 #error generation modifications
@@ -42,7 +43,7 @@ error_gen.add_argument("-ploidy", help="tumor ploidy. default diploid", type=int
 error_gen.add_argument("-subclones", help="generate multiple tumor subclones, to simulate tumor heterogeneity", type=int, default=1)
 
 args=parser.parse_args()
-
+print(args)
 #tumor_coverage=args.c/args.ploidy 
 #this line would make the read coverage between tumor and normal equal. As is if all the alleles of the tumor are combined, the tumor coverage is ploidy times more than normal.
 
@@ -52,7 +53,7 @@ assert args.cnv>=0 and args.cnv<=100, "CNV rate should be between 0 and 100 perc
 assert args.indel>=0 and args.indel<=100, "INDEL rate should be between 0 and 100 percent"
 #ensure the user gives acceptable values for cnv, indel and snp rate. we could accomplish this with the choices arg in add_argument, but I think it makes the help page look ugly
 
-art_args=["./art_run.sh", args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones]
+art_args=["./art_run.sh", args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones, args.genome, args.sam]
 art_args=list(map(str, art_args))
 #list of command line arguments used by art_run.sh.
 

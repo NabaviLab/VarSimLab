@@ -17,8 +17,6 @@ VarSimLab uses SInC simulator to generate biologically realistic tumor genomic v
 **installing Bedtools**
 If you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
 
-To install bedtools 
-
 .. code-block:: bash
  wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
  tar -zxvf bedtools-2.25.0.tar.gz
@@ -34,9 +32,8 @@ There are two ways to easily run VarSimLab for a reference genome
 
 To prepare a reference genome, follow these steps:
 
-1. Create a new folder to hold your files.
-2. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
-3. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables. You can also see more information about preparing the bed file at our github repository https://github.com/NabaviLab/VarSimLab
+1. Copy the reference genome in FASTA format (.FASTA | .FA ) to the folder. You can also download genome from UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgGateway
+2. Copy target regions file in BED format (.BED) to the folder. You can also download the target files from UCSC Table Browser https://genome.ucsc.edu/cgi-bin/hgTables. You can also see more information about preparing the bed file at our github repository https://github.com/NabaviLab/VarSimLab
 
 That's it! Your reference is ready to generate reads from.
 

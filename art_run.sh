@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+module load bwa
 ref=$(pwd) 
 REFERENCE=$2
 OUTPUT_PREFIX=$1
@@ -14,8 +15,8 @@ READ_LENGTH="${10}"
 PLOIDY="${11}"
 SEED=$RANDOM
 SUBCLONES="${12}"
-#TUMOR_FOLD_COVERAGE="${13}"
-sam=TRUE
+GENOME="${13}"
+sam="${14}"
 SIMULATION_LOG_FILE=$ref/$OUTPUT_PREFIX/SIMULATION_IS_RUNNING.txt
 M="-m 200"
 if [[ "$SINGLE_OR_PAIRED" == "False" ]]; then
@@ -48,28 +49,36 @@ printf "Read Length: "$READ_LENGTH"\n\n" >> $SIMULATION_LOG_FILE
 # creating and copying files
 printf "Copying temporary files for normal reads ..\n" >> $SIMULATION_LOG_FILE
 cp $ref/$REFERENCE /$ref/$OUTPUT_PREFIX/normal
+if [[ $sam == True ]]; then
+#    cp $ref/$GENOME /$ref/$OUTPUT_PREFIX/normal
+    cp $ref/$GENOME /$ref/$OUTPUT_PREFIX
+fi
 printf "Copying temporary files for tumor reads ..\n\n" >> $SIMULATION_LOG_FILE
 for i in `seq 1 $SUBCLONES`
 do
     cp $ref/$REFERENCE /$ref/$OUTPUT_PREFIX/tumor/subclone_$i
-    cp $ref/$TARGET /$ref/$OUTPUT_PREFIX/tumor/subclone_$i
 done
 
 # generate normal reads
 printf "Generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 cd $ref/
 NORMAL_REFERENCE=$ref/$OUTPUT_PREFIX/normal/$REFERENCE
-NORMAL_TARGET=$ref/$OUTPUT_PREFIX/normal/$TARGET
 NORMAL_OUTPUT_PREFIX=$ref/$OUTPUT_PREFIX/normal/normal
 ./art_illumina -i $NORMAL_REFERENCE -rs $SEED $M -s 10 -l 100 $SINGLE_OR_PAIRED -f $FOLD_COVERAGE -o $NORMAL_OUTPUT_PREFIX >> $SIMULATION_LOG_FILE 2>&1
 printf "Finished generating normal reads ..\n\n" >> $SIMULATION_LOG_FILE
 # clean temporary files
 cd $ref/$OUTPUT_PREFIX/normal
-if [[ $sam == TRUE ]]; then
- echo TEST
- fi 
+if [[ $sam == True ]]; then
+    bwa index $ref/$OUTPUT_PREFIX/$GENOME
+    if [[ "$SINGLE_OR_PAIRED" != "-p" ]]; then
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/normal/normal.fq  > "normal.sam"
+    #align single end reads into SAM file     
+    else
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/normal/normal1.fq $ref/$OUTPUT_PREFIX/normal/normal2.fq  > "normal.sam"
+    #align paired end reads into sam file
+    fi
+fi 
 #rm *.fa
-#rm *.fa.fai
 
 # simulate tumor genome
 for i in `seq 1 $SUBCLONES`
@@ -166,9 +175,20 @@ fi
 
 # clean temporary files
 cd $ref/$OUTPUT_PREFIX/tumor/subclone_$i
-rm *.bed*
+if [[ $sam == True ]]; then
+    if [[ "$SINGLE_OR_PAIRED" != "-p" ]]; then
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele1.fq  > "allele1.sam"
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele2.fq  > "allele2.sam"
+    #align single end reads from each of the two alleles into seperate SAM files
+    else
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele11.fq $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele12.fq  > "allele1.sam"
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele11.fq $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele12.fq  > "allele1.sam"
+    fi
+fi
+#align paired end read from each of the two alleles into seperate sam files
+
+#rm *.bed*
 rm *.fa
-rm *.fa.fai
 done
 
 # at the end of the simulation, rename the log file
