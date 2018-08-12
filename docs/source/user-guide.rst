@@ -8,20 +8,25 @@ Varsimlab can be called from the command line using any python 3 version
 Varsimlab uses art_illumina to generate short reads with realistic sequencing errors. The documentation is available `Here <https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm>`_
 
 .. code-block:: bash
- curl -O https://www.niehs.nih.gov/research/resources/assets/docs/artbinmountrainier2016.06.05linux64.tgz
- tar -xvzf artbinmountrainier2016.06.05linux64.tgz
+   curl -O https://www.niehs.nih.gov/research/resources/assets/docs/artbinmountrainier2016.06.05linux64.tgz
+   tar -xvzf artbinmountrainier2016.06.05linux64.tgz
 
 **installing SINC**
 VarSimLab uses SInC simulator to generate biologically realistic tumor genomic variations. The source files and instructions on compiling are available `Here <https://sourceforge.net/projects/sincsimulator/files/?source=navbar>`_
 
-**installing Bedtools**
-If you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
+**installing Bedtools (optional)**
+If you'd like to use VarSimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
 
-.. code-block:: bash
- wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
- tar -zxvf bedtools-2.25.0.tar.gz
- cd bedtools2
- make
+.. code-block::
+    wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+    tar -zxvf bedtools-2.25.0.tar.gz
+    cd bedtools2
+    make
+
+**installing BWA (optional)**
+If you'd like to use VarSimLab to automatically align the generated reads back t
+o your sequence of interest, generating SAM files, download and compile BWA. Download is available `Here <https://sourceforge.net/projects/bio-bwa/files/>`_ and `Here <https://sourceforge.net/projects/bio-bwa/files/>`_ is the documentation for the alignment algorithm is available `Here <http://bio-bwa.sourceforge.net/>`_    
+
 
 2. Prepare The Reference Genome
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
