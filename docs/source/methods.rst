@@ -19,5 +19,6 @@ Tumor Ploidy is implemented by re-running SInC to generate more than 2 alleles. 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 This step utilizes `ART articifial read generator <https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm>`_
 This is a widely used read generator with the capacity to faithfully simulate the error profiles of current next generation sequencers
+
 *Huang, W., Li, L., Myers, J. R., & Marth, G. T. (2012). ART: a next-generation sequencing read simulator. Bioinformatics, 28(4), 593–594. http://doi.org/10.1093/bioinformatics/btr708*
 

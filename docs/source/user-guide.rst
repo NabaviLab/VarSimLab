@@ -18,20 +18,11 @@ VarSimLab uses SInC simulator to generate biologically realistic tumor genomic v
 If you'd like to use VarSimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available `Here <http://bedtools.readthedocs.io/en/latest/>`_
 
 .. code-block::
-    wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
-    tar -zxvf bedtools-2.25.0.tar.gz
-    cd bedtools2
-    make
+ wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+ tar -zxvf bedtools-2.25.0.tar.gz
+ cd bedtools2
+ make
 
-.. code-block:: python
-      :emphasize-lines: 3,5
-
-   def some_function():
-       interesting = False
-       print 'This line is highlighted.'
-       print 'This one is not...'
-       print '...but this one is.'
-test
 **installing BWA (optional)**
 If you'd like to use VarSimLab to automatically align the generated reads back t
 o your sequence of interest, generating SAM files, download and compile BWA. Download is available `Here <https://sourceforge.net/projects/bio-bwa/files/>`_ and `Here <https://sourceforge.net/projects/bio-bwa/files/>`_ is the documentation for the alignment algorithm is available `Here <http://bio-bwa.sourceforge.net/>`_    

@@ -25,16 +25,17 @@ if [[ "$SINGLE_OR_PAIRED" == "False" ]]; then
         unset SINGLE_OR_PAIRED
         unset M
 fi
-#if the -s argument was used, then SINGLE_OR_PAIRED will be null. otherwise it will be -p. 
+#if the -s argument was used, then SINGLE_OR_PAIRED will be null. otherwise it will be -p. this way we can always supply SINGLE_OR_PAIRED to art.   
 mkdir -p $ref/$OUTPUT_PREFIX/normal
 mkdir -p $ref/$OUTPUT_PREFIX/tumor
 for i in `seq 1 $SUBCLONES`
 do
    mkdir -p $ref/$OUTPUT_PREFIX/tumor/subclone_$i
 done
-
+#make folders for each subclone file, within tumor
 # print a starting message
-printf "SIMULATION STARTED WITH THE FOLLOWING PARAMETERS\n\n" > $SIMULATION_LOG_FILE
+timestamp(){ date +"%D %T";}
+printf "SIMULATION STARTED AT `timestamp` WITH THE FOLLOWING PARAMETERS\n\n" > $SIMULATION_LOG_FILE
 printf "SNP Rate: "$SNP_RATE"\n" >> $SIMULATION_LOG_FILE
 printf "Indel Rate: "$INDEL_RATE"\n" >> $SIMULATION_LOG_FILE
 printf "Transition/Transversion Ratio: "$TRANSITION_TRANSVERSION_RATIO"\n" >> $SIMULATION_LOG_FILE
@@ -53,6 +54,7 @@ if [[ $sam == True ]]; then
 #    cp $ref/$GENOME /$ref/$OUTPUT_PREFIX/normal
     cp $ref/$GENOME /$ref/$OUTPUT_PREFIX
 fi
+#if -sam is used, we need an indexed copy of the original genome, within the output directory to align against. 
 printf "Copying temporary files for tumor reads ..\n\n" >> $SIMULATION_LOG_FILE
 for i in `seq 1 $SUBCLONES`
 do
@@ -84,7 +86,7 @@ fi
 for i in `seq 1 $SUBCLONES`
 do
 printf "Simulating tumor variations in subclone $i ..\n" >> $SIMULATION_LOG_FILE
-printf "This step takes some time. Be patient and don't terminate the Docker container :)\n\n" >> $SIMULATION_LOG_FILE 2>&1
+printf "This step takes some time. \n\n" >> $SIMULATION_LOG_FILE 2>&1
 cd /$ref/$OUTPUT_PREFIX/tumor/subclone_$i
 if (( $PLOIDY == 3)); then
     $ref/SInC/SInC_simulate -S $SNP_RATE -I $INDEL_RATE -p $CNV_RATE -l $CNV_MIN_SIZE -u $CNV_MAX_SIZE -t $TRANSITION_TRANSVERSION_RATIO $REFERENCE >> $SIMULATION_LOG_FILE

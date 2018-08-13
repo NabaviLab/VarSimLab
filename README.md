@@ -3,6 +3,8 @@
 Varsimlab is a command line python pipeline designed to easily generate artificial short reads, with structural and copy number variations. Using ART short read simulation and SInC error generation, Varsimlab can quickly simulate biologically realistic tumor and normal short reads for either genome or exome simulations.
 
 Varsimlab can generate SNPs, INDELS, and CNVs to user specification, and can simulate tumor heterogeneity and polyploidy.
+
+For more information, see the Varsimlab documentation site [here](http://varsimlab.readthedocs.io/en/latest/)
 # Setup and Dependencies 
 
 Varsimlab can be called from the command line using any python 3 version
@@ -18,15 +20,22 @@ tar -xvzf artbinmountrainier2016.06.05linux64.tgz
 
 VarSimLab uses SInC simulator to generate biologically realistic tumor genomic variations. The source files and instructions on compiling are available [here](https://sourceforge.net/projects/sincsimulator/files/?source=navbar)
 
-Lastly if you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available [here](http://bedtools.readthedocs.io/en/latest/) 
+If you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available [here](http://bedtools.readthedocs.io/en/latest/)
 
-To install bedtools 
+To install bedtools (optional: only used in Exome sequence simulation)
 ```
 wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
 tar -zxvf bedtools-2.25.0.tar.gz
 cd bedtools2
 make
 ```
+Finally, if you'd like VarSimLab to automatically align the reads you've generated back to your query sequence, download BWA. BWA documentation is available [here](http://bio-bwa.sourceforge.net/bwa.shtml)
+
+installation instructions for BWA (optional: only used for alignment if the -sam flag is invoked), are available [here](https://icb.med.cornell.edu/wiki/index.php/Elementolab/BWA_tutorial#Download_and_install_BWA_on_a_Linux.2FMac_machine)
+```
+
+
+
 
 # Quick Start Guide 
 ### genome sequence usage
