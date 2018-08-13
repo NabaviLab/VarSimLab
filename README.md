@@ -32,10 +32,6 @@ make
 Finally, if you'd like VarSimLab to automatically align the reads you've generated back to your query sequence, download BWA. BWA documentation is available [here](http://bio-bwa.sourceforge.net/bwa.shtml)
 
 installation instructions for BWA (optional: only used for alignment if the -sam flag is invoked), are available [here](https://icb.med.cornell.edu/wiki/index.php/Elementolab/BWA_tutorial#Download_and_install_BWA_on_a_Linux.2FMac_machine)
-```
-
-
-
 
 # Quick Start Guide 
 ### genome sequence usage
