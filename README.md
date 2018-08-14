@@ -76,11 +76,10 @@ to see this guide on the command line, type
 ``` 
 python3 Exome_Script.py -h 
 ```
-
-```
-Exome_Script.py [-h] (-use_genome | -bed BED) [-c C] [-s] [-l L] [-m M]
-                       [-cnv CNV] [-cnv_min_size CNV_MIN_SIZE]
+usage: Exome_Script.py [-h] (-use_genome | -bed BED) [-c C] [-s] [-l L] [-sam]
+                       [-m M] [-cnv CNV] [-cnv_min_size CNV_MIN_SIZE]
                        [-cnv_max_size CNV_MAX_SIZE] [-snp SNP] [-indel INDEL]
+                       [-ploidy {1,2,3}] [-subclones SUBCLONES]
                        filename genome
 
 positional arguments:
@@ -99,7 +98,8 @@ read generation parameters:
   -c C                  read depth of coverage
   -s                    use single end reads (default paired)
   -l L                  read length. default 100 bp
-  -m M                  maximum distance for two bed ranges to be merged into
+  -sam                  align reads to reference genome, and output sam files.
+  -m M                  maximum distance for two exonic ranges to be merged into
                         one range. If zero, merges only those ranges that
                         directly overlap with each other
 
@@ -119,4 +119,7 @@ error parameters:
   -indel INDEL          percent of total input to be included in INDELS.
                         values from 0 to 100, a value of 1 indicates 1 percent
                         of the genome should be included in indels
+  -ploidy {1,2,3}       tumor ploidy. default diploid
+  -subclones SUBCLONES  generate multiple tumor subclones, to simulate tumor
+                        heterogeneity
 ```
