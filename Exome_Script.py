@@ -59,7 +59,7 @@ art_args=list(map(str, art_args))
 
 
 def prep_bed(): 
- '''take bed file, merge together ranges that overlap or are within 30 bp of eachother. This prevents the same region being included twice, and prevents INDELS being created between nearby ranges'''
+ '''take bed file, merge together ranges that overlap or are within args.m of eachother. This prevents the same region being included twice, and prevents short pseudodeletions being created between 2 nearby exons'''
  os.system("module load bedtools")
  #bedtools_location=subprocess.check_output(["which bedtools"], shell=True, universal_newlines=True).strip()
  os.system("sort -k2,2n {} -o {}".format(args.bed, args.bed))

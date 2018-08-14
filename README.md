@@ -20,6 +20,13 @@ tar -xvzf artbinmountrainier2016.06.05linux64.tgz
 
 VarSimLab uses SInC simulator to generate biologically realistic tumor genomic variations. The source files and instructions on compiling are available [here](https://sourceforge.net/projects/sincsimulator/files/?source=navbar)
 
+To install SINC, first download source files, then run 
+```
+gcc -o genProfile genProfile.c
+gcc -o SInC_simulate SInC_simulate.c -lm -lgsl -lgslcblas
+gcc -o SInC_readGen -O2 SInC_readGen.c -lgsl -lgslcblas -lpthread
+```
+
 If you'd like to use Varsimlabs exome sequencing capabilities, Varsimlab uses Bedtools is required. bedtools documentation is available [here](http://bedtools.readthedocs.io/en/latest/)
 
 To install bedtools (optional: only used in Exome sequence simulation)
@@ -54,7 +61,7 @@ To simulate tumor and normal reads for a exome sequence, Varsimlab requires the 
 
 An example use case: 
 ```
-python3 Exome_script.py output_directory ~/chr20.fa chr20.bed
+python3 Exome_script.py output_directory ~/chr20.fa -bed chr20.bed
 ```
 Step 3 might sound daunting but fortunately UCSC tablebrowser makes it easy. The website can be found [here](https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=677064941_DieH2qjeHz0zB8ElNBfAc4ojENCa)
 and here is an explanatory video from USCS that may be helpful
@@ -75,6 +82,8 @@ to see this guide on the command line, type
 
 ``` 
 python3 Exome_Script.py -h 
+```
+
 ```
 usage: Exome_Script.py [-h] (-use_genome | -bed BED) [-c C] [-s] [-l L] [-sam]
                        [-m M] [-cnv CNV] [-cnv_min_size CNV_MIN_SIZE]
