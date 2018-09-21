@@ -164,7 +164,7 @@ def add_header(filename):
  fh.seek(0,0)
  if "INDEL" in filename:
   #TODO fix
-  fh.write("genome_position\ttarget\texome_start\texome_end\twho\tknows\n"+content) 
+  fh.write("genome_position\ttarget\texome_start\texome_end\toriginal\tvariant\n"+content) 
  if "SNP" in filename: 
   fh.write("genome_position\ttarget\texome_position\toriginal\tvariant\n"+content) 
  if "CNV_results" in filename: 
