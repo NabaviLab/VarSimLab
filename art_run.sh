@@ -51,7 +51,6 @@ printf "Read Length: "$READ_LENGTH"\n\n" >> $SIMULATION_LOG_FILE
 printf "Copying temporary files for normal reads ..\n" >> $SIMULATION_LOG_FILE
 cp $ref/$REFERENCE /$ref/$OUTPUT_PREFIX/normal
 if [[ $sam == True ]]; then
-#    cp $ref/$GENOME /$ref/$OUTPUT_PREFIX/normal
     cp $ref/$GENOME /$ref/$OUTPUT_PREFIX
 fi
 #if -sam is used, we need an indexed copy of the original genome, within the output directory to align against. 
@@ -184,7 +183,7 @@ if [[ $sam == True ]]; then
     #align single end reads from each of the two alleles into seperate SAM files
     else
         bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele11.fq $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele12.fq  > "allele1.sam"
-        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele11.fq $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele12.fq  > "allele1.sam"
+        bwa mem -t 2 -r "@RG\tID:Tum_Chr20\tSM:Tumor_Chr20" $ref/$OUTPUT_PREFIX/$GENOME $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele21.fq $ref/$OUTPUT_PREFIX/tumor/subclone_$i/tumor_allele22.fq  > "allele2.sam"
     fi
 fi
 #align paired end read from each of the two alleles into seperate sam files

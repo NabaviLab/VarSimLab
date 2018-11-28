@@ -18,4 +18,3 @@ The output of VarSimLab ideal for benchmarking variant calling software, and sho
    faq
    help
 
-.. image:: /images/figure-2.png

@@ -43,7 +43,6 @@ error_gen.add_argument("-ploidy", help="tumor ploidy. default diploid", type=int
 error_gen.add_argument("-subclones", help="generate multiple tumor subclones, to simulate tumor heterogeneity", type=int, default=1)
 
 args=parser.parse_args()
-print(args)
 #tumor_coverage=args.c/args.ploidy 
 #this line would make the read coverage between tumor and normal equal. As is if all the alleles of the tumor are combined, the tumor coverage is ploidy times more than normal.
 
@@ -188,7 +187,6 @@ def call_varsimlab(genome_file, bed_file):
  exome_file=open("exome_with_linebreaks.fa", "w") 
  exome_file.write(exome_with_linebreaks)
 #exome with linebreaks used by run.sh  
-# os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, "exome_with_linebreaks.fa", args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
  subprocess.run(art_args)
 
 
@@ -220,7 +218,6 @@ if __name__=="__main__" and not args.use_genome:
    add_header(file)
 
 elif __name__=="__main__": 
- #os.system("./art_run.sh {} {} {} {} {} {} {} {} {} {} {} {}".format(args.filename, args.genome, args.c, args.s, args.snp, args.indel, args.cnv, args.cnv_min_size, args.cnv_max_size, args.l, args.ploidy, args.subclones))
  art_args[2]=args.genome
  #switch exome_with_linebreaks out for the file path of the genome
  subprocess.run(art_args)
