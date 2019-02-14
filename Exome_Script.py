@@ -59,12 +59,12 @@ art_args=list(map(str, art_args))
 
 def prep_bed(): 
  '''take bed file, merge together ranges that overlap or are within args.m of eachother. This prevents the same region being included twice, and prevents short pseudodeletions being created between 2 nearby exons'''
- os.system("module load bedtools")
- #bedtools_location=subprocess.check_output(["which bedtools"], shell=True, universal_newlines=True).strip()
+# os.system("module load bedtools")
+# bedtools_location=subprocess.check_output(["which bedtools"], shell=True, universal_newlines=True).strip()
  os.system("sort -k2,2n {} -o {}".format(args.bed, args.bed))
  #sort the bed file based on the start column (required for bedtools merge)
  new_bedfile=args.bed+"_disjoint"
- os.system("{} merge -d {} -i {} > {}".format("/isg/shared/apps/BEDtools/2.27.1/bin/bedtools", args.m, args.bed, new_bedfile))
+ os.system("{} merge -d {} -i {} > {}".format("./bedtools2/bin/bedtools", args.m, args.bed, new_bedfile))
  #merge together adjacent ranges in bed file, rendering the bed file nonoverlapping
 
 def genome_IO(genome_file): 
@@ -186,6 +186,7 @@ def call_varsimlab(genome_file, bed_file):
  exome_with_linebreaks=(">exome\n"+exome_with_linebreaks)
  exome_file=open("exome_with_linebreaks.fa", "w") 
  exome_file.write(exome_with_linebreaks)
+ exome_file.close()
 #exome with linebreaks used by run.sh  
  subprocess.run(art_args)
 
