@@ -1,3 +1,6 @@
+
+## VarSimLab is not usable at the moment, I'll be updating with fixes by mid may. Until then try varsim_multi for WES simulating needs
+
 # Introduction
 
 Varsimlab is a command line python pipeline designed to easily generate artificial short reads, with structural and copy number variations. Using ART short read simulation and SInC error generation, Varsimlab can quickly simulate biologically realistic tumor and normal short reads for either genome or exome simulations.
